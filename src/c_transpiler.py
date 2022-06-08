@@ -20,6 +20,11 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}if (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+        elif part["type"] == "while":
+            res = generate_rt_calls(part["contents"], indent_count + 1)
+            result += f"{indent}while (stack_is_true()) {{\n"
+            result += res
+            result += f"{indent}}}\n"
         else:
             pass #print(part)
 
@@ -29,7 +34,7 @@ def generate_rt_calls(program, indent_count=1):
 # the output program in C
 def transpile_to_c(program, input_path):
     # Create the output path for the c file
-    output_path = input_path.replace(".jt", ".c")
+    output_path = input_path.replace(".cod", ".c")
 
     # Get the runtime as a string
     runtime = open(f"{Path(__file__).resolve().parent}\\runtime.c", "r").read()

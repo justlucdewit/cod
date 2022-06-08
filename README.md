@@ -7,4 +7,4 @@ Features:
  - Printing numbers
  - Printing numbers as chars
  - If statements
-
+ - While loops

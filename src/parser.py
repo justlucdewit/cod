@@ -52,9 +52,9 @@ def parse_from_file(file="test/test.lang"):
     
     program = parse_from_words(words)
 
-    print("Parsed program: ")
-    for part in program:
-        print('\t', part)
+    # print("Parsed program: ")
+    # for part in program:
+    #     print('\t', part)
     
     return program
 
@@ -78,6 +78,11 @@ def parse_from_words(words):
             i = new_i
 
             program.append({ "type": "if", "contents": parse_from_words(scope_words) })
+        elif word == "while":
+            scope_words, new_i = gather_scope(words, i)
+            i = new_i
+
+            program.append({ "type": "while", "contents": parse_from_words(scope_words) })
         else:
             print(f"Unknown word: {word}")
             exit(-1)
