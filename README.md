@@ -8,3 +8,4 @@ Features:
  - Printing numbers as chars
  - If statements
  - While loops
+ - Basic math operations (+ - / *)
