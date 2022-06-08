@@ -1,6 +1,7 @@
-0 1 2 3 4 5 6
+100
 
+-- Iterate until counter is 0
 while {
-  printn pop
-  10 printc pop
+  printn 1 - -- Print the number
+  10 printc pop -- Print newline char
 }
