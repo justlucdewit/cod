@@ -30,11 +30,33 @@ def gather_scope(words, i):
 
     return scope_words, i
 
+# Receives codefile as string and removes
+# all comments from it, comments are notated
+# with --, and can be put after code on the same line
+def remove_comments(code):
+    # Split the code into lines
+    lines = code.split("\n")
+
+    # Remove all comments
+    for i in range(len(lines)):
+        lines[i] = lines[i].split("--")[0]
+
+    # Remove all empty strings
+    lines = [line for line in lines if line != ""]
+
+    # Join the lines back together
+    code = " ".join(lines)
+
+    return code
+
 # Receives name of some file, reads code of that
 # file and returns it as a list of program parts
 def parse_from_file(file="test/test.lang"):
     # Get the contents of the file as string
     contents = open(file, "r").read()
+
+    # Remove the comments
+    contents = remove_comments(contents)
 
     # Split the contents into lines
     lines = contents.split("\n")

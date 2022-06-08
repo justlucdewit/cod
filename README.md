@@ -9,3 +9,4 @@ Features:
  - If statements
  - While loops
  - Basic math operations (+ - / *)
+ - Comments
