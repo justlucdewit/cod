@@ -61,28 +61,36 @@ def parse_from_file(file="test/test.lang"):
 def parse_from_words(words):
     program = []
 
+    builtin_words = [
+        "printn",
+        "printc",
+        "pop",
+        "+",
+        "-",
+        "/",
+        "*"
+    ]
+
     i = 0
     while i < len(words):
         word = words[i]
 
         if word.isdigit():
             program.append({ "type": "push", "value": int(word) })
-        elif word == "printn":
-            program.append({ "type": "printn" })
-        elif word == "printc":
-            program.append({ "type": "printc" })
-        elif word == "pop":
-            program.append({ "type": "pop" })
+
+        elif word in builtin_words:
+            program.append({ "type": word })
+        
         elif word == "if":
             scope_words, new_i = gather_scope(words, i)
             i = new_i
-
             program.append({ "type": "if", "contents": parse_from_words(scope_words) })
+        
         elif word == "while":
             scope_words, new_i = gather_scope(words, i)
             i = new_i
-
             program.append({ "type": "while", "contents": parse_from_words(scope_words) })
+        
         else:
             print(f"Unknown word: {word}")
             exit(-1)

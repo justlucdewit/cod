@@ -25,8 +25,12 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}while (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+        elif part["type"] in "-+*/":
+            result += f"{indent}a = stack_pop();\n"
+            result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
+
         else:
-            pass #print(part)
+            print('unknown program part type: ' + part["type"])
 
     return result
 

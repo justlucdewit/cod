@@ -15,12 +15,13 @@ void stack_push(uint64_t value) {
     stack[stack_ptr++] = value;
 }
 
-void stack_pop() {
+uint64_t stack_pop() {
     if (stack_ptr == 0) {
-        return;
+        return 0;
     }
     
     stack_ptr--;
+    return stack[stack_ptr];
 }
 
 void stack_print_numeric() {
@@ -37,3 +38,4 @@ char stack_is_true() {
 
 int main() {
     stack = malloc(sizeof(uint64_t) * stack_capacity);
+    uint64_t a, b, c, d;
