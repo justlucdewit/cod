@@ -24,6 +24,14 @@ uint64_t stack_pop() {
     return stack[stack_ptr];
 }
 
+void stack_dup() {
+    if (stack_ptr == 0) {
+        stack_push(0);
+    }
+    
+    stack_push(stack[stack_ptr - 1]);
+}
+
 void stack_print_numeric() {
     printf("%llu", stack[stack_ptr - 1]);
 }

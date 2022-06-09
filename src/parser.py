@@ -10,7 +10,7 @@ def gather_scope(words, i):
     i += 1
 
     if words[i] != "{":
-        print("Expected a scope after if keyword")
+        print("Error: Expected a scope")
         exit(-1)
 
     i += 1
@@ -81,6 +81,7 @@ def parse_from_file(file="test/test.lang"):
     return program
 
 macros = {}
+aliases = {}
 
 def parse_from_words(words):
     program = []
@@ -90,6 +91,7 @@ def parse_from_words(words):
     builtin_words = [
         "printn",
         "printc",
+        "dup",
         "pop",
         "+",
         "-",
@@ -108,15 +110,24 @@ def parse_from_words(words):
             program.append({ "type": word })
 
         elif word == "alias":
-            macro_name = words[i + 1]
-            macro_value = words[i + 2]
+            alias_name = words[i + 1]
+            alias_value = words[i + 2]
 
-            if macro_name in custom_words:
-                print(f"Error: custom word '{macro_name}' already exists")
+            if alias_name in custom_words:
+                print(f"Error: custom word '{alias_name}' already exists")
                 exit(-1)
 
             i += 2
-            macros[macro_name] = { "type": "maco", "value": macro_value }
+            aliases[alias_name] = { "type": "alias", "value": alias_value }
+            custom_words.append(alias_name)
+        
+        elif word == "macro":
+            i += 1
+            macro_name = words[i]
+            scope_words, new_i = gather_scope(words, i)
+            i = new_i - 1
+
+            macros[macro_name] = { "type": "macro", "value": scope_words }
             custom_words.append(macro_name)
         
         elif word == "if":
@@ -129,8 +140,11 @@ def parse_from_words(words):
             i = new_i
             program.append({ "type": "while", "contents": parse_from_words(scope_words) })
         
+        elif word in aliases:
+            program.append(parse_from_words([ aliases[word]["value"] ])[0])
+        
         elif word in macros:
-            program.append(parse_from_words([ macros[word]["value"] ])[0])
+            program += parse_from_words(macros[word]["value"])
         
         else:
             print(f"Unknown word: {word}")

@@ -1,5 +1,5 @@
 alias start 100
-alias step 1
+alias step 10
 
 start
 
