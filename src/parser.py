@@ -80,8 +80,12 @@ def parse_from_file(file="test/test.lang"):
     
     return program
 
+macros = {}
+
 def parse_from_words(words):
     program = []
+
+    custom_words = []
 
     builtin_words = [
         "printn",
@@ -102,6 +106,18 @@ def parse_from_words(words):
 
         elif word in builtin_words:
             program.append({ "type": word })
+
+        elif word == "alias":
+            macro_name = words[i + 1]
+            macro_value = words[i + 2]
+
+            if macro_name in custom_words:
+                print(f"Error: custom word '{macro_name}' already exists")
+                exit(-1)
+
+            i += 2
+            macros[macro_name] = { "type": "maco", "value": macro_value }
+            custom_words.append(macro_name)
         
         elif word == "if":
             scope_words, new_i = gather_scope(words, i)
@@ -112,6 +128,9 @@ def parse_from_words(words):
             scope_words, new_i = gather_scope(words, i)
             i = new_i
             program.append({ "type": "while", "contents": parse_from_words(scope_words) })
+        
+        elif word in macros:
+            program.append(parse_from_words([ macros[word]["value"] ])[0])
         
         else:
             print(f"Unknown word: {word}")

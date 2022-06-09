@@ -16,4 +16,4 @@ if len(sys.argv) > 1:
     program = parse_from_file(file_name)
     transpile_to_c(program, file_name)
 else:
-    print("JotLang V1")
+    print("CODLang transpiler V1")

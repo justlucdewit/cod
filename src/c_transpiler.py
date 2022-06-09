@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 
 def generate_rt_calls(program, indent_count=1):
     result = ""
@@ -38,7 +39,13 @@ def generate_rt_calls(program, indent_count=1):
 # the output program in C
 def transpile_to_c(program, input_path):
     # Create the output path for the c file
-    output_path = input_path.replace(".cod", ".c")
+    output_path_base = input_path.replace(".cod", "")
+    output_path = output_path_base + ".c"
+    output_ast = output_path_base + ".ast.json"
+
+    # Convert the program to beautified json and save it as the ast
+    with open(output_ast, "w") as f:
+        f.write(json.dumps(program, indent=4))
 
     # Get the runtime as a string
     runtime = open(f"{Path(__file__).resolve().parent}\\runtime.c", "r").read()
