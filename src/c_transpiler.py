@@ -18,6 +18,20 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_pop();\n"
         elif part["type"] == "dup":
             result += f"{indent}stack_dup();\n"
+        elif part["type"] == "swap":
+            result += f"{indent}stack_swap();\n"
+        elif part["type"] == "cycle3":
+            result += f"{indent}stack_cycle3();\n"
+        elif part["type"] == "malloc":
+            result += f"{indent}stack_malloc();\n"
+        elif part["type"] == "free":
+            result += f"{indent}stack_free();\n"
+        elif part["type"] == "realloc":
+            result += f"{indent}stack_realloc();\n"
+        elif part["type"] == "write8":
+            result += f"{indent}stack_write8();\n"
+        elif part["type"] == "read8":
+            result += f"{indent}stack_read8();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"

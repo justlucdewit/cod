@@ -13,4 +13,5 @@ Features:
  - Aliases
  - Macros
  - true/false buildt-ins
- - comparison operations (> < == != <= >=)
+ - Comparison operations (> &lt; == != &lt;= >=)
+ - Heap memory management

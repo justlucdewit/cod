@@ -24,6 +24,111 @@ uint64_t stack_pop() {
     return stack[stack_ptr];
 }
 
+void stack_malloc() {
+    if (stack_ptr == 0) {
+        stack_push(0);
+        return;
+    }
+    
+    // Pop buffer size from stack
+    uint64_t buffer_size = stack_pop();
+
+    // Reserve that much memory
+    uint64_t* buffer = malloc(buffer_size);
+
+    // Push the buffer address to the stack
+    stack_push((uint64_t) buffer);
+}
+
+void stack_free() {
+    if (stack_ptr == 0) {
+        return;
+    }
+    
+    // Pop buffer address from stack
+    uint64_t buffer_address = stack_pop();
+
+    // Free the buffer
+    free((void*) buffer_address);
+}
+
+void stack_realloc() {
+    if (stack_ptr == 0) {
+        stack_push(0);
+        return;
+    }
+
+    // Pop buffer size from stack
+    uint64_t buffer_size = stack_pop();
+
+    // Pop buffer address from stack
+    uint64_t buffer_address = stack_pop();
+
+    // Reallocate the buffer
+    uint64_t* buffer = realloc((void*) buffer_address, buffer_size);
+    
+    // Push the buffer address to the stack
+    stack_push((uint64_t) buffer);
+}
+
+// stack write8
+void stack_write8() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    // Pop value from stack
+    uint64_t value = stack_pop();
+
+    // Pop buffer address from stack
+    uint64_t address = stack_pop();
+
+    // Write the value to the buffer
+    *((uint8_t*) address) = value;
+}
+
+// stack read8
+void stack_read8() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    // Pop buffer address from stack
+    uint64_t address = stack_pop();
+
+    // Read the value from the buffer
+    uint64_t value = *((uint8_t*) address);
+
+    // Push the value to the stack
+    stack_push(value);
+}
+
+void stack_swap() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    uint64_t value = stack_pop();
+    uint64_t value2 = stack_pop();
+
+    stack_push(value);
+    stack_push(value2);
+}
+
+void stack_cycle3() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    uint64_t a = stack_pop();
+    uint64_t b = stack_pop();
+    uint64_t c = stack_pop();
+
+    stack_push(b);
+    stack_push(a);
+    stack_push(c);
+}
+
 void stack_dup() {
     if (stack_ptr == 0) {
         stack_push(0);
