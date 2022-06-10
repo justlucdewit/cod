@@ -13,7 +13,7 @@ if len(sys.argv) > 1:
     file_name = os.path.abspath(file_name)
 
     # Get the program parts
-    program = parse_from_file(file_name)
-    transpile_to_c(program, file_name)
+    program, subroutines = parse_from_file(file_name)
+    transpile_to_c(program, subroutines, file_name)
 else:
     print("CODLang transpiler V1")

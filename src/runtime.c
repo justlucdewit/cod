@@ -34,10 +34,10 @@ void stack_malloc() {
     uint64_t buffer_size = stack_pop();
 
     // Reserve that much memory
-    uint64_t* buffer = malloc(buffer_size);
+    size_t buffer = (size_t) malloc(buffer_size);
 
     // Push the buffer address to the stack
-    stack_push((uint64_t) buffer);
+    stack_push(buffer);
 }
 
 void stack_free() {
@@ -46,7 +46,7 @@ void stack_free() {
     }
     
     // Pop buffer address from stack
-    uint64_t buffer_address = stack_pop();
+    size_t buffer_address = stack_pop();
 
     // Free the buffer
     free((void*) buffer_address);
@@ -62,13 +62,13 @@ void stack_realloc() {
     uint64_t buffer_size = stack_pop();
 
     // Pop buffer address from stack
-    uint64_t buffer_address = stack_pop();
+    size_t buffer_address = stack_pop();
 
     // Reallocate the buffer
-    uint64_t* buffer = realloc((void*) buffer_address, buffer_size);
+    size_t buffer = (size_t) realloc((void*) buffer_address, buffer_size);
     
     // Push the buffer address to the stack
-    stack_push((uint64_t) buffer);
+    stack_push(buffer);
 }
 
 // stack write8
@@ -81,10 +81,10 @@ void stack_write8() {
     uint64_t value = stack_pop();
 
     // Pop buffer address from stack
-    uint64_t address = stack_pop();
+    size_t address = (size_t) stack_pop();
 
     // Write the value to the buffer
-    *((uint8_t*) address) = value;
+    *((size_t*) address) = value;
 }
 
 // stack read8
@@ -94,10 +94,10 @@ void stack_read8() {
     }
 
     // Pop buffer address from stack
-    uint64_t address = stack_pop();
+    size_t address = (size_t) stack_pop();
 
     // Read the value from the buffer
-    uint64_t value = *((uint8_t*) address);
+    size_t value = *((size_t*) address);
 
     // Push the value to the stack
     stack_push(value);
@@ -148,7 +148,3 @@ void stack_print_char() {
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
-
-int main() {
-    stack = malloc(sizeof(uint64_t) * stack_capacity);
-    uint64_t a, b, c, d;

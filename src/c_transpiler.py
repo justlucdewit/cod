@@ -42,6 +42,9 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}while (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+        elif part["type"] == "SRCall":
+            result += f"{indent}CODSR_{part['value']}();\n"
+        
         elif part["type"] in ["-", "+", "*", "/", "<", ">", "<=", ">=", "==", "!="]:
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
@@ -52,9 +55,20 @@ def generate_rt_calls(program, indent_count=1):
 
     return result
 
+def generate_subroutines(subroutines):
+    result = ""
+
+    for subroutine_name in subroutines:
+        subroutine = subroutines[subroutine_name]
+        result += f"\nvoid CODSR_{subroutine_name}() {{\n\tuint64_t a, b, c, d;\n"
+        result += generate_rt_calls(subroutine['value'][0], 1)
+        result += "}\n\n"
+
+    return result
+
 # Takes a list of program parts, and constructs
 # the output program in C
-def transpile_to_c(program, input_path):
+def transpile_to_c(program, subroutines, input_path):
     # Create the output path for the c file
     output_path_base = input_path.replace(".cod", "")
     output_path = output_path_base + ".c"
@@ -68,7 +82,9 @@ def transpile_to_c(program, input_path):
     runtime = open(f"{Path(__file__).resolve().parent}\\runtime.c", "r").read()
     result = runtime
 
-    result += generate_rt_calls(program);
+    result += generate_subroutines(subroutines)
+    result += "int main() {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += generate_rt_calls(program)
 
     # End the main function
     result += "\treturn 0;\n}"

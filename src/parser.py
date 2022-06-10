@@ -86,6 +86,8 @@ def parse_from_file(file="test/test.lang"):
 
 macros = {}
 
+subroutines = {}
+
 aliases = {
     "true": { "type": "push", "value": "1" },
     "false": { "type": "push", "value": "0" },
@@ -154,6 +156,19 @@ def parse_from_words(words):
 
             macros[macro_name] = { "type": "macro", "value": scope_words }
             custom_words.append(macro_name)
+
+        elif word == "subroutine":
+            i += 1
+            subroutine_name = words[i]
+            scope_words, new_i = gather_scope(words, i)
+            i = new_i - 1
+
+            if subroutine_name in custom_words:
+                print(f"Error: custom word '{subroutine_name}' already exists")
+                exit(-1)
+
+            subroutines[subroutine_name] = { "type": "subroutine", "value": parse_from_words(scope_words) }
+            custom_words.append(subroutine_name)
         
         elif word == "if":
             scope_words, new_i = gather_scope(words, i)
@@ -170,6 +185,9 @@ def parse_from_words(words):
         
         elif word in macros:
             program += parse_from_words(macros[word]["value"])
+
+        elif word in subroutines:
+            program.append({ "type": "SRCall", "value": word })
         
         else:
             print(f"Unknown word: {word}")
@@ -177,4 +195,4 @@ def parse_from_words(words):
 
         i += 1
 
-    return program
+    return program, subroutines
