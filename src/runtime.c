@@ -40,6 +40,18 @@ void stack_malloc() {
     stack_push((uint64_t) buffer);
 }
 
+void stack_free() {
+    if (stack_ptr == 0) {
+        return;
+    }
+    
+    // Pop buffer address from stack
+    uint64_t buffer_address = stack_pop();
+
+    // Free the buffer
+    free((void*) buffer_address);
+}
+
 void stack_dup() {
     if (stack_ptr == 0) {
         stack_push(0);

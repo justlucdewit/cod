@@ -102,6 +102,7 @@ def parse_from_words(words):
         "dup",
         "pop",
         "malloc",
+        "free",
         "+",
         "-",
         "/",
