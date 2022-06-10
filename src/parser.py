@@ -85,6 +85,7 @@ def parse_from_file(file="test/test.lang"):
     return program
 
 macros = {}
+
 aliases = {
     "true": { "type": "push", "value": "1" },
     "false": { "type": "push", "value": "0" },
@@ -103,7 +104,13 @@ def parse_from_words(words):
         "+",
         "-",
         "/",
-        "*"
+        "*",
+        ">",
+        "<",
+        ">=",
+        "<=",
+        "==",
+        "!=",
     ]
 
     i = 0
