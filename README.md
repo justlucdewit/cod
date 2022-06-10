@@ -12,3 +12,5 @@ Features:
  - Comments
  - Aliases
  - Macros
+ - true/false buildt-ins
+ - comparison operations (> < == != <= >=)
