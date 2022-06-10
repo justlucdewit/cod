@@ -24,6 +24,22 @@ uint64_t stack_pop() {
     return stack[stack_ptr];
 }
 
+void stack_malloc() {
+    if (stack_ptr == 0) {
+        stack_push(0);
+        return;
+    }
+    
+    // Pop buffer size from stack
+    uint64_t buffer_size = stack_pop();
+
+    // Reserve that much memory
+    uint64_t* buffer = malloc(buffer_size);
+
+    // Push the buffer address to the stack
+    stack_push((uint64_t) buffer);
+}
+
 void stack_dup() {
     if (stack_ptr == 0) {
         stack_push(0);

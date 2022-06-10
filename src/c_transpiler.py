@@ -18,6 +18,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_pop();\n"
         elif part["type"] == "dup":
             result += f"{indent}stack_dup();\n"
+        elif part["type"] == "malloc":
+            result += f"{indent}stack_malloc();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"

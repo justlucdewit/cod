@@ -101,6 +101,7 @@ def parse_from_words(words):
         "printc",
         "dup",
         "pop",
+        "malloc",
         "+",
         "-",
         "/",
