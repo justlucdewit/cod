@@ -10,7 +10,7 @@ def gather_scope(words, i):
     i += 1
 
     if words[i] != "{":
-        print("Error: Expected a scope")
+        print(f"Error: Expected a scope but got {words[i]}")
         exit(-1)
 
     i += 1
@@ -23,10 +23,14 @@ def gather_scope(words, i):
         i += 1
         if word == "{":
             indentation += 1
+            scope_words.append(word)
         elif word == "}":
             indentation -= 1
+            scope_words.append(word)
         else:
             scope_words.append(word)
+
+    scope_words.pop()
 
     return scope_words, i
 
@@ -126,6 +130,10 @@ def parse_from_words(words):
             macro_name = words[i]
             scope_words, new_i = gather_scope(words, i)
             i = new_i - 1
+
+            if macro_name in custom_words:
+                print(f"Error: custom word '{macro_name}' already exists")
+                exit(-1)
 
             macros[macro_name] = { "type": "macro", "value": scope_words }
             custom_words.append(macro_name)
