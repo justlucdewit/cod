@@ -15,3 +15,4 @@ Features:
  - true/false buildt-ins
  - Comparison operations (> &lt; == != &lt;= >=)
  - Heap memory management
+ - Subroutines
