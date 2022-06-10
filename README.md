@@ -10,3 +10,5 @@ Features:
  - While loops
  - Basic math operations (+ - / *)
  - Comments
+ - Aliases
+ - Macros
