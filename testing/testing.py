@@ -6,8 +6,8 @@ def execute_test(test_path, expect):
     # run command
     os.system(f"python ./src/compiler.py ./testing/tests/{test_path}.cod")
     os.system(f"gcc ./testing/tests/{test_path}.c -o ./testing/tests/{test_path}")
-    os.system(f"rm ./testing/tests/{test_path}.c")
-    os.system(f"rm ./testing/tests/{test_path}.ast.json")
+    os.system(f"del \"testing\\tests\\{test_path}.c\"")
+    os.system(f"del \"testing\\tests\\{test_path}.ast.json\"")
 
     # Run t001.exe and get output result and exit code
     output = os.popen(f"\"./testing/tests/{test_path}\"").read()
@@ -16,7 +16,7 @@ def execute_test(test_path, expect):
     print(f'{result} test {test_path} {error_msg}')
 
     # Delete the executable
-    os.system(f"rm ./testing/tests/{test_path}")
+    os.system(f"del \"testing\\tests\\{test_path}.exe\"")
 
 # List of all tests
 execute_test("t001", expect="123")
