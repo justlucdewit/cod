@@ -1,0 +1,10 @@
+10 malloc
+8 realloc
+
+dup 5 + 69 write8
+dup 5 + read8
+
+swap
+
+free
+printn
