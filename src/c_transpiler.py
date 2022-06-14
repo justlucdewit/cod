@@ -14,6 +14,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_print_numeric();\n"
         elif part["type"] == "printc":
             result += f"{indent}stack_print_char();\n"
+        elif part["type"] == "prints":
+            result += f"{indent}stack_print_str();\n"
         elif part["type"] == "pop":
             result += f"{indent}stack_pop();\n"
         elif part["type"] == "dup":
@@ -51,7 +53,7 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
 
         elif part["type"] == "push_str":
-            result += f"{indent}stack_push_str(\"{part['value']}\");\n" # TODO Finish this
+            result += f"{indent}stack_push_str(\"{part['value']}\");\n"
 
         else:
             print('unknown program part type: ' + part["type"])

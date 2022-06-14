@@ -156,6 +156,18 @@ void stack_print_char() {
     printf("%c", (char)stack[stack_ptr - 1]);
 }
 
+void stack_print_str() {
+    size_t len = stack_pop();
+    size_t address = stack_pop();
+    char* str = (char*) address;
+
+    // Print str of length
+    size_t i;
+    for (i = 0; i < len; i++) {
+        printf("%c", str[i]);
+    }
+}
+
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }

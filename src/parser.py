@@ -124,6 +124,7 @@ def parse_from_words(words, root=False):
     builtin_words = [
         "printn",
         "printc",
+        "prints",
         "dup",
         "pop",
         "swap",
