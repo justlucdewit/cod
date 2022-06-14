@@ -39,6 +39,15 @@ Cod can also push strings to the stack, this is done by using double quote chara
 "Hello World!" prints
 ```
 
+## Includes
+You can include source code including macros and aliases and normal code from other sourcecode files using the syntax `include "path/to/lib.cod"`. Example:
+
+```lua
+include "path/to/lib/increment.cod"
+
+10 increment printn
+```
+
 ## Math
 Cod also has some special words to do math operations on the stack. For example - which pops the top 2 values off the stack and subtracts them, and pushes the result back onto the stack.
 
