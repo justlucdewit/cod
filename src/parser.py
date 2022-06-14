@@ -1,3 +1,5 @@
+import os
+
 # Function to see if a string is a number
 # returns boolean value if it is or not
 def string_is_number(string):
@@ -53,6 +55,8 @@ def remove_comments(code):
 
     return code
 
+include_files = []
+
 # Gets list of words and returns a new list of words with the words
 # of includes included
 def resolve_includes(words, file_directory):
@@ -64,6 +68,16 @@ def resolve_includes(words, file_directory):
     while i < max_words:
         if words[i] == "include":
             include_str = file_directory + words[i+1][1:-1]
+
+            # Make include_str into absolute path
+            include_str = os.path.abspath(include_str)
+
+            if include_str in include_files:
+                print(f"Error: Circular include detected at {words[i+1][1:-1]}")
+                exit(-1)
+
+            include_files.append(include_str)
+
             include_content = open(include_str).read()
             include_words = lex_from_text(include_content, include_str)
             new_words += include_words
