@@ -1,5 +1,5 @@
--- macro increment {
---     1 +
--- }
+macro increment {
+    1 +
+}
 
--- 5 increment increment printn
+5 increment increment printn

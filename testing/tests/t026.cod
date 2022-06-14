@@ -1,29 +1,29 @@
--- -- Max number to count to
--- alias max 69
+-- Max number to count to
+alias max 5
 
--- -- Macro to increment top value of stack
--- macro increment {
---   1 +
--- }
+-- Macro to increment top value of stack
+macro increment {
+  1 +
+}
 
--- -- Macro to check if we have reached the max
--- macro check_not_at_max {
---   dup 1 - max <
--- }
+-- Macro to check if we have reached the max
+macro check_not_at_max {
+  dup 1 - max <
+}
 
--- -- Macro to print a newline char
--- macro print_newline {
---   10 printc pop
--- }
+-- Macro to print a newline char
+macro print_newline {
+  10 printc pop
+}
 
--- -- Starting number
--- 1
+-- Starting number
+1
 
--- -- While not reached max yet 
--- check_not_at_max while {
---   pop
---   printn
---   increment
---   print_newline
---   check_not_at_max
--- }
+-- While not reached max yet 
+check_not_at_max while {
+  pop
+  printn
+  increment
+  print_newline
+  check_not_at_max
+}

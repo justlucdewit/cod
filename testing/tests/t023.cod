@@ -1,7 +1,7 @@
--- 0 if {
---     10 printn
--- }
+0 if {
+    10 printn
+}
 
--- 5 if {
---     66 printn
--- }
+1 if {
+    66 printn
+}

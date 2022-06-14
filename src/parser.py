@@ -76,7 +76,7 @@ def parse_from_file(file="test/test.lang"):
     # Remove empty strings
     words = [word for word in words if word != ""]
     
-    program = parse_from_words(words)
+    program = parse_from_words(words, root=True)
 
     # print("Parsed program: ")
     # for part in program:
@@ -93,7 +93,7 @@ aliases = {
     "false": { "type": "push", "value": "0" },
 }
 
-def parse_from_words(words):
+def parse_from_words(words, root=False):
     program = []
 
     custom_words = []
@@ -123,6 +123,7 @@ def parse_from_words(words):
     ]
 
     i = 0
+    
     while i < len(words):
         word = words[i]
 
@@ -167,17 +168,17 @@ def parse_from_words(words):
                 print(f"Error: custom word '{subroutine_name}' already exists")
                 exit(-1)
 
-            subroutines[subroutine_name] = { "type": "subroutine", "value": parse_from_words(scope_words) }
+            subroutines[subroutine_name] = { "type": "subroutine", "value": parse_from_words(scope_words, False) }
             custom_words.append(subroutine_name)
         
         elif word == "if":
             scope_words, new_i = gather_scope(words, i)
-            i = new_i
+            i = new_i - 1
             program.append({ "type": "if", "contents": parse_from_words(scope_words) })
         
         elif word == "while":
             scope_words, new_i = gather_scope(words, i)
-            i = new_i
+            i = new_i - 1
             program.append({ "type": "while", "contents": parse_from_words(scope_words) })
         
         elif word in aliases:
@@ -195,4 +196,7 @@ def parse_from_words(words):
 
         i += 1
 
-    return program, subroutines
+    if root:
+        return program, subroutines
+    else:
+        return program
