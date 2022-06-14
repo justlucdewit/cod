@@ -62,19 +62,42 @@ def parse_from_file(file="test/test.lang"):
     # Remove the comments
     contents = remove_comments(contents)
 
-    # Split the contents into lines
-    lines = contents.split("\n")
-
-    # Break the lines into words
+    # Break the text into words
     words = []
-    for line in lines:
-        words.append(line.split(" "))
+    buffer = ""
+    stringMode = False
+    for char in contents:
+        # Handle strings
+        if stringMode:
+            if char == "\"":
+                stringMode = False
+                words.append(buffer + "\"")
+                buffer = ""
+            else:
+                buffer += char
 
-    # Flatten the words list
-    words = [item for sublist in words for item in sublist]
+        elif char == "\"" and not stringMode:
+            stringMode = True
+            if buffer != "":
+                words.append(buffer)
+                buffer = ""
+            buffer = "\""
+        
+        # Break words by space and newline
+        elif char == " " or char == "\n":
+            if buffer != "":
+                words.append(buffer)
+                buffer = ""
 
-    # Remove empty strings
-    words = [word for word in words if word != ""]
+        else:
+            buffer += char
+
+    if buffer != "":
+        words.append(buffer)
+
+    if stringMode:
+        print("Error: Unclosed string")
+        exit(-1)
     
     program = parse_from_words(words, root=True)
 
@@ -132,6 +155,9 @@ def parse_from_words(words, root=False):
 
         elif word in builtin_words:
             program.append({ "type": word })
+
+        elif word.startswith("\""):
+            program.append({ "type": "push_str", "value": word[1:-1] })
 
         elif word == "alias":
             alias_name = words[i + 1]

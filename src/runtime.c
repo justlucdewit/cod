@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 uint64_t* stack;
 size_t stack_ptr = 0;
@@ -13,6 +14,16 @@ void stack_push(uint64_t value) {
     }
   
     stack[stack_ptr++] = value;
+}
+
+void stack_push_str(char* str) {
+    size_t len = strlen(str);
+
+    // Push pointer to the string
+    stack_push((uint64_t)str);
+
+    // Push length
+    stack_push(len);
 }
 
 uint64_t stack_pop() {
@@ -148,3 +159,4 @@ void stack_print_char() {
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
+

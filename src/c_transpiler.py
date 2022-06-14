@@ -42,12 +42,16 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}while (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+
         elif part["type"] == "SRCall":
             result += f"{indent}CODSR_{part['value']}();\n"
         
         elif part["type"] in ["-", "+", "*", "/", "<", ">", "<=", ">=", "==", "!="]:
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
+
+        elif part["type"] == "push_str":
+            result += f"{indent}stack_push_str(\"{part['value']}\");\n" # TODO Finish this
 
         else:
             print('unknown program part type: ' + part["type"])
