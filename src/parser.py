@@ -53,12 +53,29 @@ def remove_comments(code):
 
     return code
 
-# Receives name of some file, reads code of that
-# file and returns it as a list of program parts
-def parse_from_file(file="test/test.lang"):
-    # Get the contents of the file as string
-    contents = open(file, "r").read()
+# Gets list of words and returns a new list of words with the words
+# of includes included
+def resolve_includes(words, file_directory):
+    # Get the words of the includes
+    new_words = []
+    max_words = len(words)
+    i = 0
 
+    while i < max_words:
+        if words[i] == "include":
+            include_str = file_directory + words[i+1][1:-1]
+            include_content = open(include_str).read()
+            include_words = lex_from_text(include_content, include_str)
+            new_words += include_words
+            i += 1
+        else:
+            new_words.append(words[i])
+
+        i += 1
+
+    return new_words
+
+def lex_from_text(contents, file):
     # Remove the comments
     contents = remove_comments(contents)
 
@@ -95,9 +112,30 @@ def parse_from_file(file="test/test.lang"):
     if buffer != "":
         words.append(buffer)
 
+    # Remove empty strings
+    words = [word for word in words if word != ""]
+
     if stringMode:
         print("Error: Unclosed string")
         exit(-1)
+
+    # Get the directory of the file
+    file = file.replace("\\", "/")
+    file_directory = file.split("/")
+    file_directory.pop()
+    file_directory = "/".join(file_directory) + "/"
+
+    words = resolve_includes(words, file_directory)
+
+    return words
+
+# Receives name of some file, reads code of that
+# file and returns it as a list of program parts
+def parse_from_file(file="test/test.lang"):
+    # Get the contents of the file as string
+    contents = open(file, "r").read()
+
+    words = lex_from_text(contents, file)
     
     program = parse_from_words(words, root=True)
 
