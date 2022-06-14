@@ -30,7 +30,7 @@ To compile a .cod script to C, you will need to use the command `python compiler
 Example code:
 
 ``` lua
-"Hello World!"
+"Hello World!" prints
 ```
 
 The code above will print the string "Hello World" to the terminal
