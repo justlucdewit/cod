@@ -32,6 +32,13 @@ In Cod there are 2 ways to output to the user, one way is to print the numeric v
 
 Would print the text "AB123" to the terminal.
 
+## Strings
+Cod can also push strings to the stack, this is done by using double quote characters and will push 2 numbers to the stack representing the address of where the string lives, and the length of that string. This string could then be printed using the word `prints` (print string). `Hello` Would be equal to `push <some adress> push 5`
+
+```lua
+"Hello World!" prints
+```
+
 ## Math
 Cod also has some special words to do math operations on the stack. For example - which pops the top 2 values off the stack and subtracts them, and pushes the result back onto the stack.
 
