@@ -24,6 +24,9 @@ In the future Cod is planned to be self hosted meaning the transpiler will be in
 # Usage
 To compile a .cod script to C, you will need to use the command `python compiler.py path/to/script.cod` where compiler.py is the python script located in `src/compiler.py`.
 
+You can also put `-o path/to/output` to tell where to put the output file. More options
+are available and can be read at by doing `python compiler.py -h`
+
 <br />
 
 # Language
