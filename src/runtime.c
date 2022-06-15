@@ -111,6 +111,21 @@ void stack_read8() {
     size_t value = *((size_t*) address);
 
     // Push the value to the stack
+    stack_push(value & 0xFF);
+}
+
+void stack_read64() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    // Pop buffer address from stack
+    size_t address = (size_t) stack_pop();
+
+    // Read the value from the buffer
+    size_t value = *((size_t*) address);
+
+    // Push the value to the stack
     stack_push(value);
 }
 
