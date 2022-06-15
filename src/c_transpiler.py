@@ -1,5 +1,8 @@
 from pathlib import Path
 import json
+import subprocess
+import os
+import time
 
 def generate_rt_calls(program, indent_count=1):
     result = ""
@@ -74,15 +77,19 @@ def generate_subroutines(subroutines):
 
 # Takes a list of program parts, and constructs
 # the output program in C
-def transpile_to_c(program, subroutines, input_path):
+def transpile_to_c(program, subroutines, input_path, args):
     # Create the output path for the c file
     output_path_base = input_path.replace(".cod", "")
     output_path = output_path_base + ".c"
     output_ast = output_path_base + ".ast.json"
 
+    # Get start timestamp in ms
+    start_time = int(round(time.time() * 1000))
+
     # Convert the program to beautified json and save it as the ast
-    with open(output_ast, "w") as f:
-        f.write(json.dumps(program, indent=4))
+    if args.debug:
+        with open(output_ast, "w") as f:
+            f.write(json.dumps(program, indent=4))
 
     # Get the runtime as a string
     runtime = open(f"{Path(__file__).resolve().parent}\\runtime.c", "r").read()
@@ -98,3 +105,31 @@ def transpile_to_c(program, subroutines, input_path):
     # Write the result to the output file
     with open(output_path, "w") as f:
         f.write(result)
+
+    # Compile the output_path using gcc
+    # gcc -o output_path_base output_path
+    output_path_base = output_path_base.replace("\\", "/")
+    output_path_base = output_path_base.split("/")
+    output_path_base.pop()
+    output_path_base = "/".join(output_path_base)
+
+    output_path_base = args.output if args.output else output_path_base + '/output'
+
+    subprocess.call(["gcc", "-o", output_path_base, output_path])
+
+    # Delete the output_path file
+    if not args.debug:
+        os.remove(output_path)
+
+    # Print how long compilation took
+    if args.time:
+        end_time = int(round(time.time() * 1000))
+        print(f"Compilation took {end_time - start_time} ms")
+
+    # Run the compiled program
+    if args.run:
+        subprocess.call([output_path_base])
+
+
+    
+

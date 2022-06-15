@@ -1,4 +1,2 @@
-cls
-python src/compiler.py ./test/test.cod
-gcc ./test/test.c -o ./test/test
-"./test/test.exe"
+@echo off
+cod test/test.cod -r -o test/test %*
