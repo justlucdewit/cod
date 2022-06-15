@@ -181,6 +181,7 @@ def parse_from_words(words, root=False):
         "pop",
         "swap",
         "cycle3",
+        "argc",
         "malloc",
         "free",
         "realloc",

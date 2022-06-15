@@ -27,6 +27,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_swap();\n"
         elif part["type"] == "cycle3":
             result += f"{indent}stack_cycle3();\n"
+        elif part["type"] == "argc":
+            result += f"{indent}stack_push(argc);\n"
         elif part["type"] == "malloc":
             result += f"{indent}stack_malloc();\n"
         elif part["type"] == "free":
@@ -96,7 +98,7 @@ def transpile_to_c(program, subroutines, input_path, args):
     result = runtime
 
     result += generate_subroutines(subroutines)
-    result += "int main() {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += "int main(char argc, char** argv) {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
     result += generate_rt_calls(program)
 
     # End the main function
