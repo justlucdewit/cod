@@ -27,6 +27,10 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_swap();\n"
         elif part["type"] == "cycle3":
             result += f"{indent}stack_cycle3();\n"
+        elif part["type"] == "argc":
+            result += f"{indent}stack_push(argc);\n"
+        elif part["type"] == "argv":
+            result += f"{indent}stack_push((uint64_t)argv);\n"
         elif part["type"] == "malloc":
             result += f"{indent}stack_malloc();\n"
         elif part["type"] == "free":
@@ -37,6 +41,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_write8();\n"
         elif part["type"] == "read8":
             result += f"{indent}stack_read8();\n"
+        elif part["type"] == "read64":
+            result += f"{indent}stack_read64();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
@@ -70,7 +76,7 @@ def generate_subroutines(subroutines):
     for subroutine_name in subroutines:
         subroutine = subroutines[subroutine_name]
         result += f"\nvoid CODSR_{subroutine_name}() {{\n\tuint64_t a, b, c, d;\n"
-        result += generate_rt_calls(subroutine['value'][0], 1)
+        result += generate_rt_calls(subroutine['value'], 1)
         result += "}\n\n"
 
     return result
@@ -96,7 +102,7 @@ def transpile_to_c(program, subroutines, input_path, args):
     result = runtime
 
     result += generate_subroutines(subroutines)
-    result += "int main() {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += "int main(char argc, char** argv) {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
     result += generate_rt_calls(program)
 
     # End the main function

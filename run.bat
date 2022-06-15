@@ -1,2 +1,2 @@
 @echo off
-cod test/test.cod -r -o test/test %*
+cod test/test.cod -o test/test %*
