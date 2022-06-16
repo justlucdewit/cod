@@ -1,0 +1,3 @@
+include "std/cstr.cod"
+
+"This is a test" pop cstr_print
