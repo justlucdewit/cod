@@ -1,4 +1,5 @@
 import os
+from std_libs import libs
 
 # Function to see if a string is a number
 # returns boolean value if it is or not
@@ -67,20 +68,37 @@ def resolve_includes(words, file_directory):
 
     while i < max_words:
         if words[i] == "include":
-            include_str = file_directory + words[i+1][1:-1]
+            include_str_rel =  words[i+1][1:-1]
+            include_str = file_directory + include_str_rel
 
             # Make include_str into absolute path
             include_str = os.path.abspath(include_str)
 
             if include_str in include_files:
-                print(f"Error: Circular include detected at {words[i+1][1:-1]}")
+                print(f"Error: Circular include detected at {include_str_rel}")
                 exit(-1)
 
-            include_files.append(include_str)
+            # If file starts with std/
+            if include_str_rel.startswith("std/"):
+                include_files.append(include_str_rel)
 
-            include_content = open(include_str).read()
-            include_words = lex_from_text(include_content, include_str)
-            new_words += include_words
+                lib_name = include_str_rel[4:]
+                lib_code = libs[lib_name]
+                include_words = lex_from_text(lib_code, include_str_rel)
+                new_words += include_words
+            else:
+
+                include_files.append(include_str)
+
+                # If file doesnt exist
+                if not os.path.isfile(include_str):
+                    print(f"Can not include file: '{include_str}'")
+                    exit(-1)
+
+                include_content = open(include_str).read()
+                include_words = lex_from_text(include_content, include_str)
+                new_words += include_words
+
             i += 1
         else:
             new_words.append(words[i])
