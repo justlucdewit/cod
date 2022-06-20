@@ -215,6 +215,7 @@ def parse_from_words(words, root=False):
         "|",
         "^",
         "<<",
+        ">>",
         ">",
         "<",
         ">=",
