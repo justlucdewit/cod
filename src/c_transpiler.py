@@ -57,7 +57,7 @@ def generate_rt_calls(program, indent_count=1):
         elif part["type"] == "SRCall":
             result += f"{indent}CODSR_{part['value']}();\n"
         
-        elif part["type"] in ["-", "+", "*", "/", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
+        elif part["type"] in ["-", "+", "/", "*", "%", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
 
