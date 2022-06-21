@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 1 2 3 * + printn
 32 printc
 1 2 3 cycle3 * + printn

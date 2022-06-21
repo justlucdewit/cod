@@ -1,2 +1,4 @@
+include "std/math.cod"
+
 -- Should result into 39
 5454238247 255 & printn

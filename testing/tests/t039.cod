@@ -1,2 +1,4 @@
+include "std/math.cod"
+
 -- Should result into 1280
 5 8 << printn

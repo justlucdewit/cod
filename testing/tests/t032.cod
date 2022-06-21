@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 argc 1 + printn
 
 argv read64 4 + read8 printc

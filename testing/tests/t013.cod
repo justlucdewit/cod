@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 alias a 5
 
 a a + printn

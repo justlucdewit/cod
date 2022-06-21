@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 alias start 5
 alias step 1
 

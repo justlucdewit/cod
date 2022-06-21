@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 10 malloc
 8 realloc
 

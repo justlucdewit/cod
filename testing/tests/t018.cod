@@ -1,1 +1,3 @@
+include "std/math.cod"
+
 4 7 swap - printn

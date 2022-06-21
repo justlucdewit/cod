@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 -- Pops a pointer to a string from the stack
 -- and itterates over the string until it finds
 -- null terminator, printing out each character

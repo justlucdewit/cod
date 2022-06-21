@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 9 while {
     printn 1 -
 }

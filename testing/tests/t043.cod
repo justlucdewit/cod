@@ -1,3 +1,5 @@
+include "std/math.cod"
+
 random 2 %
 
 dup 1 == if {
