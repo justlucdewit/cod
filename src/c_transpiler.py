@@ -43,6 +43,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_read8();\n"
         elif part["type"] == "read64":
             result += f"{indent}stack_read64();\n"
+        elif part["type"] == "random":
+            result += f"{indent}stack_random();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
@@ -105,7 +107,7 @@ def transpile_to_c(program, subroutines, input_path, args):
     result = runtime
 
     result += generate_subroutines(subroutines)
-    result += "int main(char argc, char** argv) {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += "int main(char argc, char** argv) {\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
     result += generate_rt_calls(program)
 
     # End the main function

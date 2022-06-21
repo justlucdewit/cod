@@ -207,6 +207,7 @@ def parse_from_words(words, root=False):
         "write8",
         "read8",
         "read64",
+        "random",
         "+",
         "-",
         "/",

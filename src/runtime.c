@@ -163,6 +163,23 @@ void stack_dup() {
     stack_push(stack[stack_ptr - 1]);
 }
 
+// Generate u64 random numbers
+#define IMAX_BITS(m) ((m)/((m)%255+1) / 255%255*8 + 7-86/((m)%255+12))
+#define RAND_MAX_WIDTH IMAX_BITS(RAND_MAX)
+_Static_assert((RAND_MAX & (RAND_MAX + 1u)) == 0, "RAND_MAX not a Mersenne number");
+
+void stack_random() {
+
+    uint64_t r = 0;
+    int i;
+    for (i = 0; i < 64; i += RAND_MAX_WIDTH) {
+        r <<= RAND_MAX_WIDTH;
+        r ^= (unsigned) rand();
+    }
+    // Push a random u64 to the stack
+    stack_push(rand());
+}
+
 void stack_print_numeric() {
     printf("%llu", stack[stack_ptr - 1]);
 }
