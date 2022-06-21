@@ -17,3 +17,67 @@ subroutine / {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() / a);"
 }
+
+subroutine % {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() % a);"
+}
+
+subroutine & {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() & a);"
+}
+
+subroutine | {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() | a);"
+}
+
+subroutine ^ {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() ^ a);"
+}
+
+subroutine << {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() << a);"
+}
+
+subroutine >> {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() >> a);"
+}
+
+subroutine < {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() < a);"
+}
+
+subroutine > {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() > a);"
+}
+
+subroutine <= {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() <= a);"
+}
+
+subroutine >= {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() >= a);"
+}
+
+subroutine == {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() == a);"
+}
+
+subroutine != {
+    raw "a = stack_pop();"
+    raw "stack_push(stack_pop() != a);"
+}
+
+subroutine ! {
+    raw "stack_push(!stack_pop());"
+}

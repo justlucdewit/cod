@@ -201,20 +201,7 @@ def parse_from_words(words, root=False):
         "read64",
         "random",
         "cyclen",
-        "parseInt",
-        "!",
-        "%",
-        "&",
-        "|",
-        "^",
-        "<<",
-        ">>",
-        ">",
-        "<",
-        ">=",
-        "<=",
-        "==",
-        "!=",
+        "parseInt"
     ]
 
     i = 0
