@@ -61,9 +61,9 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}}}\n"
 
         elif part["type"] == "SRCall":
-            result += f"{indent}CODSR_{part['value']}();\n"
+            result += f"{indent}CODSR_{part['uuid']}();\n"
         
-        elif part["type"] in ["-", "+", "/", "*", "%", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
+        elif part["type"] in ["%", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
 
@@ -87,7 +87,7 @@ def generate_subroutines(subroutines):
 
     for subroutine_name in subroutines:
         subroutine = subroutines[subroutine_name]
-        result += f"\nvoid CODSR_{subroutine_name}() {{\n\tuint64_t a, b, c, d;\n"
+        result += f"\n// Subroutine '{subroutine_name}'\nvoid CODSR_{subroutine['uuid']}() {{\n\tuint64_t a, b, c, d;\n"
         result += generate_rt_calls(subroutine['value'], 1)
         result += "}\n\n"
 

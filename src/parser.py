@@ -1,5 +1,5 @@
 import os
-from std_libs import libs
+import uuid
 
 # Function to see if a string is a number
 # returns boolean value if it is or not
@@ -78,26 +78,16 @@ def resolve_includes(words, file_directory):
                 print(f"Error: Circular include detected at {include_str_rel}")
                 exit(-1)
 
-            # If file starts with std/
-            if include_str_rel.startswith("std/"):
-                include_files.append(include_str_rel)
+            include_files.append(include_str)
 
-                lib_name = include_str_rel[4:]
-                lib_code = libs[lib_name]
-                include_words = lex_from_text(lib_code, include_str_rel)
-                new_words += include_words
-            else:
+            # If file doesnt exist
+            if not os.path.isfile(include_str):
+                print(f"Can not include file: '{include_str}'")
+                exit(-1)
 
-                include_files.append(include_str)
-
-                # If file doesnt exist
-                if not os.path.isfile(include_str):
-                    print(f"Can not include file: '{include_str}'")
-                    exit(-1)
-
-                include_content = open(include_str).read()
-                include_words = lex_from_text(include_content, include_str)
-                new_words += include_words
+            include_content = open(include_str).read()
+            include_words = lex_from_text(include_content, include_str)
+            new_words += include_words
 
             i += 1
         else:
@@ -170,17 +160,12 @@ def lex_from_text(contents, file):
 
 # Receives name of some file, reads code of that
 # file and returns it as a list of program parts
-def parse_from_file(file="test/test.lang"):
+def parse_from_file(file="test/test.cod"):
     # Get the contents of the file as string
     contents = open(file, "r").read()
 
     words = lex_from_text(contents, file)
-    
     program = parse_from_words(words, root=True)
-
-    # print("Parsed program: ")
-    # for part in program:
-    #     print('\t', part)
     
     return program
 
@@ -217,10 +202,6 @@ def parse_from_words(words, root=False):
         "random",
         "cyclen",
         "parseInt",
-        "+",
-        "-",
-        "/",
-        "*",
         "!",
         "%",
         "&",
@@ -280,12 +261,13 @@ def parse_from_words(words, root=False):
             subroutine_name = words[i]
             scope_words, new_i = gather_scope(words, i)
             i = new_i - 1
+            subroutine_uuid = uuid.uuid4()
 
             if subroutine_name in custom_words:
                 print(f"Error: custom word '{subroutine_name}' already exists")
                 exit(-1)
 
-            subroutines[subroutine_name] = { "type": "subroutine", "value": parse_from_words(scope_words, False) }
+            subroutines[subroutine_name] = { "type": "subroutine", "uuid": str(subroutine_uuid).replace("-", "_"), "value": parse_from_words(scope_words, False) }
             custom_words.append(subroutine_name)
         
         elif word == "if":
@@ -310,7 +292,8 @@ def parse_from_words(words, root=False):
             program += parse_from_words(macros[word]["value"])
 
         elif word in subroutines:
-            program.append({ "type": "SRCall", "value": word })
+            subroutine = subroutines[word]
+            program.append({ "type": "SRCall", "uuid": subroutine["uuid"], "value": word })
         
         else:
             print(f"Unknown word: {word}")
