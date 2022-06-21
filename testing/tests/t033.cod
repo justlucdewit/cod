@@ -1,3 +1,4 @@
+include "std/io.cod"
 include "std/math.cod"
 
 -- Pops a pointer to a string from the stack

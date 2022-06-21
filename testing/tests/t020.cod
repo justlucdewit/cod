@@ -1,3 +1,5 @@
+include "std/io.cod"
+
 5 malloc
 free
 8 printn
