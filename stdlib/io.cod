@@ -1,0 +1,11 @@
+subroutine printn {
+    raw "stack_print_numeric();"
+}
+
+subroutine printc {
+    raw "stack_print_char();"
+}
+
+subroutine prints {
+    raw "stack_print_str();"
+}

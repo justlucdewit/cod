@@ -13,12 +13,7 @@ def generate_rt_calls(program, indent_count=1):
     for part in program:
         if part["type"] == "push":
             result += f"{indent}stack_push({part['value']});\n"
-        elif part["type"] == "printn":
-            result += f"{indent}stack_print_numeric();\n"
-        elif part["type"] == "printc":
-            result += f"{indent}stack_print_char();\n"
-        elif part["type"] == "prints":
-            result += f"{indent}stack_print_str();\n"
+
         elif part["type"] == "pop":
             result += f"{indent}stack_pop();\n"
         elif part["type"] == "dup":
