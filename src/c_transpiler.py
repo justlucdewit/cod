@@ -14,18 +14,15 @@ def generate_rt_calls(program, indent_count=1):
         if part["type"] == "push":
             result += f"{indent}stack_push({part['value']});\n"
 
-        elif part["type"] == "argc":
-            result += f"{indent}stack_push(argc);\n"
-        elif part["type"] == "argv":
-            result += f"{indent}stack_push((uint64_t)argv);\n"
-
         elif part["type"] == "parseInt":
             result += f"{indent}stack_parse_int64();\n"
+
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+            
         elif part["type"] == "while":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}while (stack_is_true()) {{\n"
