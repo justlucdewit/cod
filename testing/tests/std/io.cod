@@ -1,0 +1,11 @@
+macro printn {
+    raw "stack_print_numeric();"
+}
+
+macro printc {
+    raw "stack_print_char();"
+}
+
+macro prints {
+    raw "stack_print_str();"
+}

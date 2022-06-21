@@ -1,13 +1,9 @@
-include "std/args.cod"
-include "std/memory.cod"
-include "std/stack.cod"
-include "std/io.cod"
-include "std/math.cod"
+include "math.cod"
 
 -- Pops a pointer to a string from the stack
 -- and itterates over the string until it finds
 -- null terminator, printing out each character
-subroutine cstr_print {
+macro cstr_print {
     0
     swap dup cycle3 dup cycle3 + read8
 
@@ -17,5 +13,3 @@ subroutine cstr_print {
         swap dup cycle3 dup cycle3 + read8
     }
 }
-
-argv read64 cstr_print

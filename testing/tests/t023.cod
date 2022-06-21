@@ -1,3 +1,5 @@
+include "std/io.cod"
+
 0 if {
     10 printn
 }

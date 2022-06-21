@@ -13,47 +13,13 @@ def generate_rt_calls(program, indent_count=1):
     for part in program:
         if part["type"] == "push":
             result += f"{indent}stack_push({part['value']});\n"
-        elif part["type"] == "printn":
-            result += f"{indent}stack_print_numeric();\n"
-        elif part["type"] == "printc":
-            result += f"{indent}stack_print_char();\n"
-        elif part["type"] == "prints":
-            result += f"{indent}stack_print_str();\n"
-        elif part["type"] == "pop":
-            result += f"{indent}stack_pop();\n"
-        elif part["type"] == "dup":
-            result += f"{indent}stack_dup();\n"
-        elif part["type"] == "swap":
-            result += f"{indent}stack_swap();\n"
-        elif part["type"] == "cycle3":
-            result += f"{indent}stack_cycle3();\n"
-        elif part["type"] == "argc":
-            result += f"{indent}stack_push(argc);\n"
-        elif part["type"] == "argv":
-            result += f"{indent}stack_push((uint64_t)argv);\n"
-        elif part["type"] == "malloc":
-            result += f"{indent}stack_malloc();\n"
-        elif part["type"] == "free":
-            result += f"{indent}stack_free();\n"
-        elif part["type"] == "realloc":
-            result += f"{indent}stack_realloc();\n"
-        elif part["type"] == "write8":
-            result += f"{indent}stack_write8();\n"
-        elif part["type"] == "read8":
-            result += f"{indent}stack_read8();\n"
-        elif part["type"] == "read64":
-            result += f"{indent}stack_read64();\n"
-        elif part["type"] == "random":
-            result += f"{indent}stack_random();\n"
-        elif part["type"] == "cyclen":
-            result += f"{indent}stack_cycle_n();\n"
-        elif part["type"] == "parseInt":
-            result += f"{indent}stack_parse_int64();\n"
+
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
+
         elif part["type"] == "while":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}while (stack_is_true()) {{\n"
@@ -61,17 +27,13 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}}}\n"
 
         elif part["type"] == "SRCall":
-            result += f"{indent}CODSR_{part['value']}();\n"
-        
-        elif part["type"] in ["-", "+", "/", "*", "%", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
-            result += f"{indent}a = stack_pop();\n"
-            result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
-
-        elif part["type"] == "!":
-            result += f"{indent}stack_push(!stack_pop());\n"
+            result += f"{indent}CODSR_{part['uuid']}();\n"
 
         elif part["type"] == "push_str":
             result += f"{indent}stack_push_str(\"{part['value']}\");\n"
+
+        elif part["type"] == "raw":
+            result += f"{indent}{part['value']}\n"
 
         else:
             print('unknown program part type: ' + part["type"])
@@ -84,7 +46,7 @@ def generate_subroutines(subroutines):
 
     for subroutine_name in subroutines:
         subroutine = subroutines[subroutine_name]
-        result += f"\nvoid CODSR_{subroutine_name}() {{\n\tuint64_t a, b, c, d;\n"
+        result += f"\n// Subroutine '{subroutine_name}'\nvoid CODSR_{subroutine['uuid']}() {{\n\tuint64_t a, b, c, d;\n"
         result += generate_rt_calls(subroutine['value'], 1)
         result += "}\n\n"
 

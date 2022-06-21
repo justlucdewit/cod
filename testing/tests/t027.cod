@@ -1,3 +1,8 @@
+include "std/memory.cod"
+include "std/stack.cod"
+include "std/io.cod"
+include "std/math.cod"
+
 macro print_from_offset {
     swap dup cycle3 + read8 printc pop
 }

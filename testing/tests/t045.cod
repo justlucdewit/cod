@@ -1,2 +1,5 @@
+include "std/convert.cod"
+include "std/io.cod"
+
 -- Expected result: 69420
 "69420" parseInt printn

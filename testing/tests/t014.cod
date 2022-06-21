@@ -1,3 +1,6 @@
+include "std/io.cod"
+include "std/math.cod"
+
 macro increment {
     1 +
 }

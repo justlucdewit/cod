@@ -1,3 +1,4 @@
-include "std/math.cod"
+include "std/io.cod"
+include "libs/increment.cod"
 
 23 increment printn

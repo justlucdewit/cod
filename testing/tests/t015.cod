@@ -1,3 +1,5 @@
+include "std/io.cod"
+
 65 printc
 66 printc
 67 printc

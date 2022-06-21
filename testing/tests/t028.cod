@@ -1,1 +1,4 @@
+include "std/io.cod"
+include "std/math.cod"
+
 true true true + + printn

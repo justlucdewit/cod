@@ -1,2 +1,5 @@
+include "std/io.cod"
+include "std/math.cod"
+
 -- Should result into 3
 123 5 % printn
