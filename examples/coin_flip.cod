@@ -1,0 +1,9 @@
+random 2 %
+
+dup 1 == if {
+    "Heads" prints
+}
+
+dup 1 != if {
+    "Tails" prints
+}

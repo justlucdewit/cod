@@ -1,0 +1,2 @@
+-- Should result into 3
+123 5 % printn

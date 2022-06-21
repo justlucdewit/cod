@@ -1,0 +1,2 @@
+-- Should result into 5
+1280 8 >> printn

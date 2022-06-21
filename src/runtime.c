@@ -163,6 +163,23 @@ void stack_dup() {
     stack_push(stack[stack_ptr - 1]);
 }
 
+// Generate u64 random numbers
+#define IMAX_BITS(m) ((m)/((m)%255+1) / 255%255*8 + 7-86/((m)%255+12))
+#define RAND_MAX_WIDTH IMAX_BITS(RAND_MAX)
+_Static_assert((RAND_MAX & (RAND_MAX + 1u)) == 0, "RAND_MAX not a Mersenne number");
+
+void stack_random() {
+
+    uint64_t r = 0;
+    int i;
+    for (i = 0; i < 64; i += RAND_MAX_WIDTH) {
+        r <<= RAND_MAX_WIDTH;
+        r ^= (unsigned) rand();
+    }
+    // Push a random u64 to the stack
+    stack_push(rand());
+}
+
 void stack_print_numeric() {
     printf("%llu", stack[stack_ptr - 1]);
 }
@@ -181,6 +198,52 @@ void stack_print_str() {
     for (i = 0; i < len; i++) {
         printf("%c", str[i]);
     }
+}
+
+void stack_cycle_n() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    uint64_t n = stack_pop();
+    
+    // instead of cycling the top 3 values
+    // cycle the top n values
+    size_t buffer_count = 0;
+    uint64_t* buffer = malloc(n * sizeof(uint64_t));
+
+    size_t i;
+    for (i = 0; i < n; i++) {
+        buffer[buffer_count++] = stack_pop();
+    }
+
+    for (i = n - 1; i > 0; i--) {
+        stack_push(buffer[i - 1]);
+    }
+
+    stack_push(buffer[n - 1]);
+
+    free(buffer);
+}
+
+void stack_parse_int64() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    // Pop string length from stack
+    size_t len = stack_pop();
+
+    // Pop string address from stack
+    size_t address = stack_pop();
+
+    char* str = (char*) address;
+
+    // Parse the string
+    int64_t value = strtoll(str, NULL, 10);
+
+    // Push the value to the stack
+    stack_push(value);
 }
 
 char stack_is_true() {

@@ -1,0 +1,2 @@
+-- Should result into 6
+5 3 ^ printn

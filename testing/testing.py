@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
+from sys import stdout
+
+i = 1
 
 def execute_test(test_path, expect):
-    
+    global i
+
     # run command
     os.system(f"python ./src/compiler.py ./testing/tests/{test_path}.cod")
 
@@ -10,7 +14,14 @@ def execute_test(test_path, expect):
     output = os.popen(f"\"./testing/tests/output\"").read()
     result = '🔴' if output != expect else '🟢'
     error_msg = f"expected '{expect}' but got '{output}'" if output != expect else ''
-    print(f'{result} test {test_path} {error_msg}')
+    print(f'{result} test {test_path} {error_msg}\t', end="")
+
+    if i % 5 == 0:
+        print("")
+
+    stdout.flush()
+
+    i += 1
 
     # Delete the executable
     os.system(f"del \"testing\\tests\\output.exe\"")
@@ -51,3 +62,13 @@ execute_test("t032", expect="2s")
 execute_test("t033", expect="./testing/tests/output")
 execute_test("t034", expect="24")
 execute_test("t035", expect="This is a test")
+execute_test("t036", expect="39")
+execute_test("t037", expect="7")
+execute_test("t038", expect="6")
+execute_test("t039", expect="1280")
+execute_test("t040", expect="5")
+execute_test("t041", expect="3")
+execute_test("t042", expect="100")
+execute_test("t043", expect="5")
+execute_test("t044", expect="15432")
+execute_test("t045", expect="69420")

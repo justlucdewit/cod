@@ -43,6 +43,12 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_read8();\n"
         elif part["type"] == "read64":
             result += f"{indent}stack_read64();\n"
+        elif part["type"] == "random":
+            result += f"{indent}stack_random();\n"
+        elif part["type"] == "cyclen":
+            result += f"{indent}stack_cycle_n();\n"
+        elif part["type"] == "parseInt":
+            result += f"{indent}stack_parse_int64();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
@@ -57,9 +63,12 @@ def generate_rt_calls(program, indent_count=1):
         elif part["type"] == "SRCall":
             result += f"{indent}CODSR_{part['value']}();\n"
         
-        elif part["type"] in ["-", "+", "*", "/", "<", ">", "<=", ">=", "==", "!="]:
+        elif part["type"] in ["-", "+", "/", "*", "%", "&", "|", "^", "<<", ">>", "<", ">", "<=", ">=", "==", "!="]:
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
+
+        elif part["type"] == "!":
+            result += f"{indent}stack_push(!stack_pop());\n"
 
         elif part["type"] == "push_str":
             result += f"{indent}stack_push_str(\"{part['value']}\");\n"
@@ -102,7 +111,7 @@ def transpile_to_c(program, subroutines, input_path, args):
     result = runtime
 
     result += generate_subroutines(subroutines)
-    result += "int main(char argc, char** argv) {\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += "int main(char argc, char** argv) {\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
     result += generate_rt_calls(program)
 
     # End the main function
