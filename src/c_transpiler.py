@@ -73,6 +73,9 @@ def generate_rt_calls(program, indent_count=1):
         elif part["type"] == "push_str":
             result += f"{indent}stack_push_str(\"{part['value']}\");\n"
 
+        elif part["type"] == "raw":
+            result += f"{indent}{part['value']}\n"
+
         else:
             print('unknown program part type: ' + part["type"])
             exit(-1)

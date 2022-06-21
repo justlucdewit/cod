@@ -115,15 +115,22 @@ def lex_from_text(contents, file):
     words = []
     buffer = ""
     stringMode = False
+    escapeMode = False
     for char in contents:
         # Handle strings
         if stringMode:
-            if char == "\"":
+            if escapeMode:
+                buffer += char
+                escapeMode = False
+            elif char == "\"":
                 stringMode = False
                 words.append(buffer + "\"")
                 buffer = ""
             else:
-                buffer += char
+                if char == "\\":
+                    escapeMode = True
+                else:
+                    buffer += char
 
         elif char == "\"" and not stringMode:
             stringMode = True
@@ -291,6 +298,11 @@ def parse_from_words(words, root=False):
             i = new_i - 1
             program.append({ "type": "while", "contents": parse_from_words(scope_words) })
         
+        elif word == "raw":
+            i += 1
+            raw_value = words[i]
+            program.append({ "type": "raw", "value": raw_value[1:-1] })
+
         elif word in aliases:
             program.append(parse_from_words([ aliases[word]["value"] ])[0])
         
