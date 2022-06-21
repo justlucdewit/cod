@@ -14,14 +14,6 @@ def generate_rt_calls(program, indent_count=1):
         if part["type"] == "push":
             result += f"{indent}stack_push({part['value']});\n"
 
-        elif part["type"] == "pop":
-            result += f"{indent}stack_pop();\n"
-        elif part["type"] == "dup":
-            result += f"{indent}stack_dup();\n"
-        elif part["type"] == "swap":
-            result += f"{indent}stack_swap();\n"
-        elif part["type"] == "cycle3":
-            result += f"{indent}stack_cycle3();\n"
         elif part["type"] == "argc":
             result += f"{indent}stack_push(argc);\n"
         elif part["type"] == "argv":
@@ -38,10 +30,7 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_read8();\n"
         elif part["type"] == "read64":
             result += f"{indent}stack_read64();\n"
-        elif part["type"] == "random":
-            result += f"{indent}stack_random();\n"
-        elif part["type"] == "cyclen":
-            result += f"{indent}stack_cycle_n();\n"
+
         elif part["type"] == "parseInt":
             result += f"{indent}stack_parse_int64();\n"
         elif part["type"] == "if":

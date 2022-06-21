@@ -1,0 +1,23 @@
+subroutine dup {
+    raw "stack_dup();"
+}
+
+subroutine pop {
+    raw "stack_pop();"
+}
+
+subroutine swap {
+    raw "stack_swap();"
+}
+
+subroutine cycle3 {
+    raw "stack_cycle3();"
+}
+
+subroutine random {
+    raw "stack_random();"
+}
+
+subroutine cyclen {
+    raw "stack_cycle_n();"
+}

@@ -184,20 +184,16 @@ def parse_from_words(words, root=False):
     custom_words = []
 
     builtin_words = [
-        "dup",
-        "pop",
-        "swap",
-        "cycle3",
         "argc",
         "argv",
+
         "malloc",
         "free",
         "realloc",
         "write8",
         "read8",
         "read64",
-        "random",
-        "cyclen",
+        
         "parseInt"
     ]
 
