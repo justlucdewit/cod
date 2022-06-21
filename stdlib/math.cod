@@ -1,83 +1,83 @@
-subroutine + {
+macro + {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() + a);"
 }
 
-subroutine - {
+macro - {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() - a);"
 }
 
-subroutine * {
+macro * {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() * a);"
 }
 
-subroutine / {
+macro / {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() / a);"
 }
 
-subroutine % {
+macro % {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() % a);"
 }
 
-subroutine & {
+macro & {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() & a);"
 }
 
-subroutine | {
+macro | {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() | a);"
 }
 
-subroutine ^ {
+macro ^ {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() ^ a);"
 }
 
-subroutine << {
+macro << {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() << a);"
 }
 
-subroutine >> {
+macro >> {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() >> a);"
 }
 
-subroutine < {
+macro < {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() < a);"
 }
 
-subroutine > {
+macro > {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() > a);"
 }
 
-subroutine <= {
+macro <= {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() <= a);"
 }
 
-subroutine >= {
+macro >= {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() >= a);"
 }
 
-subroutine == {
+macro == {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() == a);"
 }
 
-subroutine != {
+macro != {
     raw "a = stack_pop();"
     raw "stack_push(stack_pop() != a);"
 }
 
-subroutine ! {
+macro ! {
     raw "stack_push(!stack_pop());"
 }

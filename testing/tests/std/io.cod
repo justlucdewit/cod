@@ -1,11 +1,11 @@
-subroutine printn {
+macro printn {
     raw "stack_print_numeric();"
 }
 
-subroutine printc {
+macro printc {
     raw "stack_print_char();"
 }
 
-subroutine prints {
+macro prints {
     raw "stack_print_str();"
 }

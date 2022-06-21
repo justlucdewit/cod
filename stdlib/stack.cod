@@ -1,23 +1,23 @@
-subroutine dup {
+macro dup {
     raw "stack_dup();"
 }
 
-subroutine pop {
+macro pop {
     raw "stack_pop();"
 }
 
-subroutine swap {
+macro swap {
     raw "stack_swap();"
 }
 
-subroutine cycle3 {
+macro cycle3 {
     raw "stack_cycle3();"
 }
 
-subroutine random {
+macro random {
     raw "stack_random();"
 }
 
-subroutine cyclen {
+macro cyclen {
     raw "stack_cycle_n();"
 }

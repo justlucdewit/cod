@@ -1,23 +1,23 @@
-subroutine malloc {
+macro malloc {
     raw "stack_malloc();"
 }
 
-subroutine free {
+macro free {
     raw "stack_free();"
 }
 
-subroutine realloc {
+macro realloc {
     raw "stack_realloc();"
 }
 
-subroutine write8 {
+macro write8 {
     raw "stack_write8();"
 }
 
-subroutine read8 {
+macro read8 {
     raw "stack_read8();"
 }
 
-subroutine read64 {
+macro read64 {
     raw "stack_read64();"
 }
