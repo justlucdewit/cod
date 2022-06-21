@@ -18,18 +18,6 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_push(argc);\n"
         elif part["type"] == "argv":
             result += f"{indent}stack_push((uint64_t)argv);\n"
-        elif part["type"] == "malloc":
-            result += f"{indent}stack_malloc();\n"
-        elif part["type"] == "free":
-            result += f"{indent}stack_free();\n"
-        elif part["type"] == "realloc":
-            result += f"{indent}stack_realloc();\n"
-        elif part["type"] == "write8":
-            result += f"{indent}stack_write8();\n"
-        elif part["type"] == "read8":
-            result += f"{indent}stack_read8();\n"
-        elif part["type"] == "read64":
-            result += f"{indent}stack_read64();\n"
 
         elif part["type"] == "parseInt":
             result += f"{indent}stack_parse_int64();\n"

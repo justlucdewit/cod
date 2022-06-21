@@ -186,13 +186,6 @@ def parse_from_words(words, root=False):
     builtin_words = [
         "argc",
         "argv",
-
-        "malloc",
-        "free",
-        "realloc",
-        "write8",
-        "read8",
-        "read64",
         
         "parseInt"
     ]
