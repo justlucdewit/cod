@@ -47,6 +47,8 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_random();\n"
         elif part["type"] == "cyclen":
             result += f"{indent}stack_cycle_n();\n"
+        elif part["type"] == "parseInt":
+            result += f"{indent}stack_parse_int64();\n"
         elif part["type"] == "if":
             res = generate_rt_calls(part["contents"], indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"

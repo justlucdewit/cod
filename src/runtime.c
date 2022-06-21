@@ -226,6 +226,26 @@ void stack_cycle_n() {
     free(buffer);
 }
 
+void stack_parse_int64() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    // Pop string length from stack
+    size_t len = stack_pop();
+
+    // Pop string address from stack
+    size_t address = stack_pop();
+
+    char* str = (char*) address;
+
+    // Parse the string
+    int64_t value = strtoll(str, NULL, 10);
+
+    // Push the value to the stack
+    stack_push(value);
+}
+
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
