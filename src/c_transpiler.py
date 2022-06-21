@@ -61,6 +61,9 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}a = stack_pop();\n"
             result += f"{indent}stack_push(stack_pop() {part['type']} a);\n"
 
+        elif part["type"] == "!":
+            result += f"{indent}stack_push(!stack_pop());\n"
+
         elif part["type"] == "push_str":
             result += f"{indent}stack_push_str(\"{part['value']}\");\n"
 
