@@ -180,12 +180,7 @@ aliases = {
 
 def parse_from_words(words, root=False):
     program = []
-
     custom_words = []
-
-    builtin_words = [
-        "parseInt"
-    ]
 
     i = 0
     
@@ -194,9 +189,6 @@ def parse_from_words(words, root=False):
 
         if word.isdigit():
             program.append({ "type": "push", "value": int(word) })
-
-        elif word in builtin_words:
-            program.append({ "type": word })
 
         elif word.startswith("\""):
             program.append({ "type": "push_str", "value": word[1:-1] })
