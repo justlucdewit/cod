@@ -200,6 +200,32 @@ void stack_print_str() {
     }
 }
 
+void stack_cycle_n() {
+    if (stack_ptr == 0) {
+        return;
+    }
+
+    uint64_t n = stack_pop();
+    
+    // instead of cycling the top 3 values
+    // cycle the top n values
+    size_t buffer_count = 0;
+    uint64_t* buffer = malloc(n * sizeof(uint64_t));
+
+    size_t i;
+    for (i = 0; i < n; i++) {
+        buffer[buffer_count++] = stack_pop();
+    }
+
+    for (i = n - 1; i > 0; i--) {
+        stack_push(buffer[i - 1]);
+    }
+
+    stack_push(buffer[n - 1]);
+
+    free(buffer);
+}
+
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
