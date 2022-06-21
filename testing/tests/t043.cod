@@ -1,3 +1,4 @@
+include "std/stack.cod"
 include "std/io.cod"
 include "std/math.cod"
 
