@@ -110,7 +110,10 @@ def lex_from_text(contents, file):
         # Handle strings
         if stringMode:
             if escapeMode:
-                buffer += char
+                if char == "n":
+                    buffer += "\\n"
+                else:
+                    buffer += char
                 escapeMode = False
             elif char == "\"":
                 stringMode = False
