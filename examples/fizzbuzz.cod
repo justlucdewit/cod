@@ -28,8 +28,7 @@ while {
     dup 5 divisible_by if {
         "buzz" prints
     } pop
-
-    -- HERE
+    
     -- Check if divisible by neither
     dup 3 divisible_by ! swap dup cycle3 swap 5 divisible_by ! & if {
         swap printn swap
