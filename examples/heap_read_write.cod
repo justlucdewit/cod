@@ -1,9 +1,14 @@
+include "std/io.cod"
+include "std/stack.cod"
+include "std/math.cod"
+include "std/memory.cod"
+
 macro print_from_offset {
-  swap dup cycle3 + read8 printc pop
+    swap dup cycle3 + read8 printc pop
 }
 
 macro write_to_offset {
-  cycle3 cycle3 swap dup cycle3 + cycle3 write8
+    cycle3 cycle3 swap dup cycle3 + cycle3 write8
 }
 
 -- Create buffer to store string
@@ -40,4 +45,3 @@ macro write_to_offset {
 9  print_from_offset
 10 print_from_offset
 11 print_from_offset
-  
