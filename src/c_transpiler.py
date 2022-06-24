@@ -73,7 +73,7 @@ def transpile_to_c(program, subroutines, input_path, args):
     result = runtime
 
     result += generate_subroutines(subroutines)
-    result += "int main(char argc, char** argv) {\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
+    result += "int main(char argc, char** argv) {\n\ttest(argv[0]);\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
     result += generate_rt_calls(program)
 
     # End the main function

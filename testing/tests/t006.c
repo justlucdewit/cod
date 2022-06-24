@@ -292,10 +292,9 @@ void stack_file_read() {
     char* address = (char*) stack_pop();
 
     size_t f_size;
-    uint64_t buffer = (uint64_t) c_read_file(address, &f_size);
+    char* buffer = c_read_file(address, &f_size);
 
-    stack_push(buffer);
-    stack_push(f_size);
+    printf(buffer);
 }
 
 void test(char* path) {
@@ -311,11 +310,19 @@ void test(char* path) {
             lastSlashPos = i;
     }
 
-    if (lastSlashPos == 0) {
-        execPath = "./";
-    } else {
-        strncpy(res, path, lastSlashPos);
-        res[lastSlashPos] = '/';
-        execPath = res;
-    }
+    strncpy(res, path, lastSlashPos);
+    res[lastSlashPos] = '/';
+    execPath = res;
+    printf(execPath);
+}int main(char argc, char** argv) {
+	test(argv[0]);
+	srand(time(0));
+	stack = malloc(sizeof(uint64_t) * stack_capacity);
+	uint64_t a, b, c, d;
+	stack_push(7);
+	stack_push(2);
+	a = stack_pop();
+	stack_push(stack_pop() / a);
+	stack_print_numeric();
+	return 0;
 }
