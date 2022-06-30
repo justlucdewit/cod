@@ -1,0 +1,15 @@
+include "std/stack.cod"
+include "std/io.cod"
+include "std/math.cod"
+
+random 2 %
+
+dup 1 == if {
+    "Heads"
+}
+
+dup 1 != if {
+    "Tails"
+}
+
+5 printn

@@ -1,0 +1,8 @@
+include "std/args.cod"
+include "std/memory.cod"
+include "std/io.cod"
+include "std/math.cod"
+
+argc 1 + printn
+
+argv read64 4 + read8 printc

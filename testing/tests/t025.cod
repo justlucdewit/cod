@@ -1,10 +1,14 @@
--- alias start 100
--- alias step 1
+include "std/stack.cod"
+include "std/io.cod"
+include "std/math.cod"
 
--- start
+alias start 5
+alias step 1
 
--- -- Iterate until counter is 0
--- while {
---   printn step - -- Print the number
---   10 printc pop -- Print newline char
--- }
+start
+
+-- Iterate until counter is 0
+while {
+  printn step - -- Print the number
+  10 printc pop -- Print newline char
+}

@@ -1,0 +1,7 @@
+macro argc {
+    raw "stack_push(argc);"
+}
+
+macro argv {
+    raw "stack_push((uint64_t)argv);"
+}

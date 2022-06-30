@@ -1,0 +1,23 @@
+macro dup {
+    raw "stack_dup();"
+}
+
+macro pop {
+    raw "stack_pop();"
+}
+
+macro swap {
+    raw "stack_swap();"
+}
+
+macro cycle3 {
+    raw "stack_cycle3();"
+}
+
+macro random {
+    raw "stack_random();"
+}
+
+macro cyclen {
+    raw "stack_cycle_n();"
+}

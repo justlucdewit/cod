@@ -1,3 +1,8 @@
+include "std/memory.cod"
+include "std/stack.cod"
+include "std/io.cod"
+include "std/math.cod"
+
 10 malloc
 8 realloc
 

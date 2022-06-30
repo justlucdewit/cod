@@ -1,1 +1,4 @@
+include "std/stack.cod"
+include "std/io.cod"
+
 54 22 pop printn

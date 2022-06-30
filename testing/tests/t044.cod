@@ -1,0 +1,13 @@
+include "std/stack.cod"
+include "std/io.cod"
+
+-- Expected result: 15432
+1 2 3 4 5
+
+5 cyclen
+
+printn
+pop printn
+pop printn
+pop printn
+pop printn

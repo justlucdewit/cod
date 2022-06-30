@@ -1,0 +1,15 @@
+include "math.cod"
+
+-- Pops a pointer to a string from the stack
+-- and itterates over the string until it finds
+-- null terminator, printing out each character
+macro cstr_print {
+    0
+    swap dup cycle3 dup cycle3 + read8
+
+    while {
+        printc pop
+        1 +
+        swap dup cycle3 dup cycle3 + read8
+    }
+}

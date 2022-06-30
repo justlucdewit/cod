@@ -1,3 +1,6 @@
--- alias a 5
+include "std/io.cod"
+include "std/math.cod"
 
--- a a + printn
+alias a 5
+
+a a + printn

@@ -1,0 +1,3 @@
+macro parseInt {
+    raw "stack_parse_int64();"
+}

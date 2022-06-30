@@ -1,0 +1,5 @@
+include "std/io.cod"
+include "std/math.cod"
+
+-- Should result into 5
+1280 8 >> printn

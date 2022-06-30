@@ -1,3 +1,7 @@
+include "std/io.cod"
+include "std/math.cod"
+include "std/stack.cod"
+
 -- Max number to count to
 alias max 69
 

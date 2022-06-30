@@ -1,0 +1,4 @@
+include "std/io.cod"
+include "libs/increment.cod"
+
+10 increment printn

@@ -1,0 +1,6 @@
+include "std/memory.cod"
+include "std/stack.cod"
+include "std/io.cod"
+include "std/cstr.cod"
+
+"This is a test" pop cstr_print

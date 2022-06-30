@@ -1,7 +1,9 @@
--- 0 if {
---     10 printn
--- }
+include "std/io.cod"
 
--- 5 if {
---     66 printn
--- }
+0 if {
+    10 printn
+}
+
+1 if {
+    66 printn
+}

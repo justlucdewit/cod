@@ -1,0 +1,21 @@
+include "std/args.cod"
+include "std/memory.cod"
+include "std/stack.cod"
+include "std/io.cod"
+include "std/math.cod"
+
+-- Pops a pointer to a string from the stack
+-- and itterates over the string until it finds
+-- null terminator, printing out each character
+subroutine cstr_print {
+    0
+    swap dup cycle3 dup cycle3 + read8
+
+    while {
+        printc pop
+        1 +
+        swap dup cycle3 dup cycle3 + read8
+    }
+}
+
+argv read64 cstr_print

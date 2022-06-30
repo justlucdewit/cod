@@ -1,0 +1,3 @@
+include "std/io.cod"
+
+"This is a test" printn

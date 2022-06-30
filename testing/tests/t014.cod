@@ -1,5 +1,8 @@
--- macro increment {
---     1 +
--- }
+include "std/io.cod"
+include "std/math.cod"
 
--- 5 increment increment printn
+macro increment {
+    1 +
+}
+
+5 increment increment printn

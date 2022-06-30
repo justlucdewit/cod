@@ -1,0 +1,23 @@
+macro malloc {
+    raw "stack_malloc();"
+}
+
+macro free {
+    raw "stack_free();"
+}
+
+macro realloc {
+    raw "stack_realloc();"
+}
+
+macro write8 {
+    raw "stack_write8();"
+}
+
+macro read8 {
+    raw "stack_read8();"
+}
+
+macro read64 {
+    raw "stack_read64();"
+}
