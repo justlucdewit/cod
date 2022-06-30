@@ -15,6 +15,17 @@ void stack_push(uint64_t value) {
     stack[stack_ptr++] = value;
 }
 
+void stack_push_str(char* str) {
+    uint64_t len = (uint64_t) strlen(str);
+
+    // Push pointer to the string
+    uint64_t str_ptr_as_number = str;
+    stack_push(str_ptr_as_number);
+
+    // Push length
+    stack_push(len);
+}
+
 uint64_t stack_pop() {
     if (stack_ptr == 0) {
         return 0;
