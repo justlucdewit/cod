@@ -252,3 +252,19 @@ char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
 
+int main(char argc, char** argv) {
+	srand(time(0));
+	stack = malloc(sizeof(uint64_t) * stack_capacity);
+	uint64_t a, b, c, d;
+	stack_push(5);
+	while (stack_is_true()) {
+		stack_print_numeric();
+		stack_push(1);
+		a = stack_pop();
+		stack_push(stack_pop() - a);
+		stack_push(10);
+		stack_print_char();
+		stack_pop();
+	}
+	return 0;
+}
