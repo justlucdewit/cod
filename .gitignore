@@ -1,3 +1,8 @@
 ﻿.vscode
 src/__pycache__
 test
+*.spec
+dist
+build
+testing/*.c
+*.exe

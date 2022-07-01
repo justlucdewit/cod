@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 uint64_t* stack;
 size_t stack_ptr = 0;
@@ -20,7 +21,7 @@ void stack_push_str(char* str) {
     uint64_t len = (uint64_t) strlen(str);
 
     // Push pointer to the string
-    uint64_t str_ptr_as_number = str;
+    size_t str_ptr_as_number = (size_t) str;
     stack_push(str_ptr_as_number);
 
     // Push length

@@ -45,7 +45,7 @@ arg_parser.add_argument(
 args = arg_parser.parse_args(sys.argv[1:])
 
 if args.version:
-    print('COD Compiler v1.0')
+    print('COD Compiler v1.0.0')
     sys.exit(0)
 else:
     if args.filename == '':
@@ -55,18 +55,3 @@ else:
     file_name = os.path.abspath(args.filename)
     program, subroutines = parse_from_file(file_name)
     transpile_to_c(program, subroutines, file_name, args)
-
-# # Get the file name from the command line
-# if len(sys.argv) > 1:
-
-#     # Get the file name
-#     file_name = sys.argv[1]
-
-#     # Get the absolute path
-#     file_name = os.path.abspath(file_name)
-
-#     # Get the program parts
-#     program, subroutines = parse_from_file(file_name)
-#     transpile_to_c(program, subroutines, file_name)
-# else:
-#     print("CODLang transpiler V1")
