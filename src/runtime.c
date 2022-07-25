@@ -250,3 +250,4 @@ char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
 
+uint64_t* variable_buffer;

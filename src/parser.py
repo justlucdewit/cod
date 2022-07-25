@@ -184,6 +184,8 @@ aliases = {
 def parse_from_words(words, root=False):
     program = []
     custom_words = []
+    defined_vars = []
+    var_count = 0
 
     i = 0
     
@@ -232,34 +234,60 @@ def parse_from_words(words, root=False):
                 print(f"Error: custom word '{subroutine_name}' already exists")
                 exit(-1)
 
-            subroutines[subroutine_name] = { "type": "subroutine", "uuid": str(subroutine_uuid).replace("-", "_"), "value": parse_from_words(scope_words, False) }
+            contents, new_var_words = parse_from_words(scope_words, False)
+            subroutines[subroutine_name] = { "type": "subroutine", "uuid": str(subroutine_uuid).replace("-", "_"), "value": contents }
+            defined_vars += new_var_words
             custom_words.append(subroutine_name)
         
         elif word == "if":
             scope_words, new_i = gather_scope(words, i)
             i = new_i - 1
-            program.append({ "type": "if", "contents": parse_from_words(scope_words) })
+            contents, new_var_words = parse_from_words(scope_words, False)
+            program.append({ "type": "if", "contents": contents })
+            defined_vars += new_var_words
         
         elif word == "while":
             scope_words, new_i = gather_scope(words, i)
             i = new_i - 1
-            program.append({ "type": "while", "contents": parse_from_words(scope_words) })
+            contents, new_var_words = parse_from_words(scope_words, False)
+            program.append({ "type": "while", "contents": contents })
+            defined_vars += new_var_words
         
         elif word == "raw":
             i += 1
             raw_value = words[i]
             program.append({ "type": "raw", "value": raw_value[1:-1] })
 
+        elif word.startswith("set::"):
+            variable_name = word[5:]
+            program.append({ "type": "set_var", "value": variable_name })
+            if not len(list(map(lambda x: x["name"] == variable_name, defined_vars))) > 0:
+                defined_vars.append({ "name": variable_name, "index": var_count })
+                var_count += 1
+        
+        elif word.startswith("get::"):
+            variable_name = word[5:]
+            program.append({ "type": "get_var", "value": variable_name })
+            
+            # If defined vars has a var which name matches
+            if not len(list(map(lambda x: x["name"] == variable_name, defined_vars))) > 0:
+                defined_vars.append({ "name": variable_name, "index": var_count })
+                var_count += 1
+
         elif word in aliases:
-            program.append(parse_from_words([ aliases[word]["value"] ])[0])
+            contents, new_vars = parse_from_words([ aliases[word]["value"] ])
+            program.append(contents[0])
+            defined_vars += new_vars
         
         elif word in macros:
-            program += parse_from_words(macros[word]["value"])
+            contents, new_vars = parse_from_words(macros[word]["value"])
+            program += contents
+            defined_vars += new_vars
 
         elif word in subroutines:
             subroutine = subroutines[word]
             program.append({ "type": "SRCall", "uuid": subroutine["uuid"], "value": word })
-        
+
         else:
             print(f"Unknown word: {word}")
             exit(-1)
@@ -267,6 +295,6 @@ def parse_from_words(words, root=False):
         i += 1
 
     if root:
-        return program, subroutines
+        return program, subroutines, defined_vars
     else:
-        return program
+        return program, defined_vars

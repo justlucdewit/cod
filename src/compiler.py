@@ -53,8 +53,8 @@ else:
         sys.exit(1)
 
     file_name = os.path.abspath(args.filename)
-    program, subroutines = parse_from_file(file_name)
-    transpile_to_c(program, subroutines, file_name, args)
+    program, subroutines, variables = parse_from_file(file_name)
+    transpile_to_c(program, subroutines, variables, file_name, args)
 
 # # Get the file name from the command line
 # if len(sys.argv) > 1:
