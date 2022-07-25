@@ -1,0 +1,6 @@
+include "std/io.cod"
+include "std/stack.cod"
+
+6 5 set::testing_var
+
+pop get::testing_var printn

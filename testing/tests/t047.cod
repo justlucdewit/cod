@@ -1,0 +1,13 @@
+include "std/io.cod"
+include "std/math.cod"
+include "std/stack.cod"
+
+69 set::start_number
+
+3 while {
+    1 -
+    get::start_number
+    1 + set::start_number
+    printn pop
+    "\n" prints
+}
