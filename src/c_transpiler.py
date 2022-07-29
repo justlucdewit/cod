@@ -252,6 +252,8 @@ void stack_parse_int64() {
 char stack_is_true() {
     return stack[stack_ptr - 1] != 0;
 }
+
+uint64_t* variable_buffer;
 """
 
 from pathlib import Path
@@ -260,7 +262,7 @@ import subprocess
 import os
 import time
 
-def generate_rt_calls(program, indent_count=1):
+def generate_rt_calls(program, variables, indent_count=1):
     result = ""
 
     indent = "\t" * indent_count
@@ -271,13 +273,13 @@ def generate_rt_calls(program, indent_count=1):
             result += f"{indent}stack_push({part['value']});\n"
 
         elif part["type"] == "if":
-            res = generate_rt_calls(part["contents"], indent_count + 1)
+            res = generate_rt_calls(part["contents"], variables, indent_count + 1)
             result += f"{indent}if (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
 
         elif part["type"] == "while":
-            res = generate_rt_calls(part["contents"], indent_count + 1)
+            res = generate_rt_calls(part["contents"], variables, indent_count + 1)
             result += f"{indent}while (stack_is_true()) {{\n"
             result += res
             result += f"{indent}}}\n"
@@ -291,26 +293,45 @@ def generate_rt_calls(program, indent_count=1):
         elif part["type"] == "raw":
             result += f"{indent}{part['value']}\n"
 
+        elif part["type"] == "set_var":
+            var_name = part["value"]
+            var_index = 0
+            for var in variables:
+                if var["name"] == var_name:
+                    var_index = var["index"]
+                    break
+
+            result += f"{indent}variable_buffer[{var_index}] = stack[stack_ptr - 1];\n"
+
+        elif part["type"] == "get_var":
+            var_name = part["value"]
+            var_index = 0
+            for var in variables:
+                if var["name"] == var_name:
+                    var_index = var["index"]
+                    break
+            result += f"{indent}stack_push(variable_buffer[{var_index}]);\n"
+
         else:
             print('unknown program part type: ' + part["type"])
             exit(-1)
 
     return result
 
-def generate_subroutines(subroutines):
+def generate_subroutines(subroutines, variables):
     result = ""
 
     for subroutine_name in subroutines:
         subroutine = subroutines[subroutine_name]
         result += f"\n// Subroutine '{subroutine_name}'\nvoid CODSR_{subroutine['uuid']}() {{\n\tuint64_t a, b, c, d;\n"
-        result += generate_rt_calls(subroutine['value'], 1)
+        result += generate_rt_calls(subroutine['value'], variables, 1)
         result += "}\n\n"
 
     return result
 
 # Takes a list of program parts, and constructs
 # the output program in C
-def transpile_to_c(program, subroutines, input_path, args):
+def transpile_to_c(program, subroutines, variables, input_path, args):
     # Create the output path for the c file
     output_path_base = input_path.replace(".cod", "")
     output_path = output_path_base + ".c"
@@ -327,9 +348,9 @@ def transpile_to_c(program, subroutines, input_path, args):
     # Get the runtime as a string
     result = runtime
 
-    result += generate_subroutines(subroutines)
-    result += "int main(char argc, char** argv) {\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\n"
-    result += generate_rt_calls(program)
+    result += generate_subroutines(subroutines, variables)
+    result += f"int main(char argc, char** argv) {{\n\tsrand(time(0));\n\tstack = malloc(sizeof(uint64_t) * stack_capacity);\n\tuint64_t a, b, c, d;\nvariable_buffer = calloc({len(variables)}, sizeof(uint64_t));\n"
+    result += generate_rt_calls(program, variables)
 
     # End the main function
     result += "\treturn 0;\n}"
