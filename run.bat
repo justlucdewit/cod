@@ -1,2 +1,2 @@
 @echo off
-cod test/test.cod -o test/test %*
+python src/compiler.py test/test.cod -o test/test %*

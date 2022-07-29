@@ -359,30 +359,8 @@ def transpile_to_c(program, subroutines, variables, input_path, args):
     with open(output_path, "w") as f:
         f.write(result)
 
-    # Compile the output_path using gcc
-    # gcc -o output_path_base output_path
-    output_path_base = output_path_base.replace("\\", "/")
-    output_path_base = output_path_base.split("/")
-    output_path_base.pop()
-    output_path_base = "/".join(output_path_base)
-
-    output_path_base = args.output if args.output else output_path_base + '/output'
-
-    subprocess.call(["gcc", "-o", output_path_base, output_path])
-
-    # Delete the output_path file
-    if not args.debug:
-        os.remove(output_path)
-
     # Print how long compilation took
     if args.time:
         end_time = int(round(time.time() * 1000))
         print(f"Compilation took {end_time - start_time} ms")
-
-    # Run the compiled program
-    if args.run:
-        subprocess.call([output_path_base])
-
-
-    
 

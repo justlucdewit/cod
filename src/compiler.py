@@ -19,12 +19,6 @@ arg_parser.add_argument(
     action='store_true')
 
 arg_parser.add_argument(
-    '-r',
-    '--run',
-    help='Run the produced executable after compilation',
-    action='store_true')
-
-arg_parser.add_argument(
     'filename',
     nargs='?',
     help='File with the source code to compile/interpret',
