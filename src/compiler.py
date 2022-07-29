@@ -3,6 +3,7 @@ import os
 from c_transpiler import transpile_to_c
 from parser import parse_from_file
 import argparse
+from sys import exit
 
 arg_parser = argparse.ArgumentParser(description='COD Compiler')
 

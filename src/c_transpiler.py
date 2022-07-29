@@ -1,3 +1,5 @@
+from sys import exit
+
 runtime = """
 #include <stdint.h>
 #include <stdlib.h>

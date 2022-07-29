@@ -1,5 +1,6 @@
 import os
 import uuid
+from sys import exit
 
 # Function to see if a string is a number
 # returns boolean value if it is or not
