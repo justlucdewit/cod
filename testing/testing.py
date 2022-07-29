@@ -9,12 +9,13 @@ def execute_test(test_path, expect):
 
     # run command
     os.system(f"python ./src/compiler.py ./testing/tests/{test_path}.cod")
+    os.system(f"gcc ./testing/tests/{test_path}.c -o ./testing/tests/{test_path}")
 
     # Run t001.exe and get output result and exit code
-    output = os.popen(f"\"./testing/tests/output\"").read()
+    output = os.popen(f"\"./testing/tests/{test_path}.exe\"").read()
     result = '🔴' if output != expect else '🟢'
     error_msg = f"expected '{expect}' but got '{output}'" if output != expect else ''
-    print(f'{result} test {test_path} {error_msg}\t', end="")
+    print(f'{result} {test_path} {error_msg}\t', end="")
 
     if i % 5 == 0:
         print("")
@@ -24,7 +25,8 @@ def execute_test(test_path, expect):
     i += 1
 
     # Delete the executable
-    os.system(f"del \"testing\\tests\\output.exe\"")
+    os.system(f"del .\\testing\\tests\\{test_path}.exe")
+    os.system(f"del .\\testing\\tests\\{test_path}.c")
 
 # List of all tests
 execute_test("t001", expect="123")
@@ -59,7 +61,7 @@ execute_test("t029", expect="14")
 execute_test("t030", expect="Hello World!")
 execute_test("t031", expect="11")
 execute_test("t032", expect="2s")
-execute_test("t033", expect="./testing/tests/output")
+execute_test("t033", expect="./testing/tests/t033.exe")
 execute_test("t034", expect="24")
 execute_test("t035", expect="This is a test")
 execute_test("t036", expect="39")
