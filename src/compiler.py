@@ -39,7 +39,7 @@ arg_parser.add_argument(
 args = arg_parser.parse_args(sys.argv[1:])
 
 if args.version:
-    print('COD Compiler v1.0.0')
+    print('COD Compiler v1.1.0')
     sys.exit(0)
 else:
     if args.filename == '':
