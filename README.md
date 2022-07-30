@@ -8,66 +8,79 @@
 <br />
 
 # The Cod Compiler
-Cod is an opensource concatenative stack-based general purpose programming language. Its transpiled to C and then compiled further to a native executable using external compilers like GCC.
+Cod is an opensource concatenative stack-based general purpose programming language that compiles to C 
 
 <br />
 
 # Installation
-Currently The Cod transpiler is written in python meaning you will
-need to have Python 3 installed on your system. You will also need
-a C compiler like GCC, Clang or MSVC if you want to compile it further to a native executable.
+You can download the latest version from your operating system on [The cod website](https://codlang.com)
 
-In the future Cod is planned to be self hosted meaning the transpiler will be in the form of an executable that you can put in your path environment variable.
+Once downloaded you can put the executable in your system PATH and then it should work
 
 <br />
 
 # Usage
-To compile a .cod script to C, you will need to use the command `python compiler.py path/to/script.cod` where compiler.py is the python script located in `src/compiler.py`.
+`cod someScript.cod -o someScript.c`
 
-You can also put `-o path/to/output` to tell where to put the output file. More options
-are available and can be read at by doing `python compiler.py -h`
+for More help, run `cod --help`
+
+Make sure to download the [standard library](https://github.com/justlucdewit/cod/tree/master/stdlib) in your project root
 
 <br />
 
 # Language
-Example code:
+Hello World:
 
 ``` lua
 "Hello World!" prints
 ```
 
-The code above will print the string "Hello World" to the terminal
+Fizzbuzz:
 
 ```lua
--- Max number to count to
-alias max 100
+-- Fizzbuzz example written in Cod
+include "std/math.cod"
+include "std/io.cod"
+include "std/stack.cod"
 
--- Macro to increment top value of stack
-macro increment {
-  1 +
+alias max_loop_count 40
+
+-- Subroutine to check if number is divisible by another number
+subroutine divisible_by {
+    % 0 ==
 }
 
--- Macro to check if we have reached the max
-macro check_not_at_max {
-  dup 1 - max <
-}
-
--- Macro to print a newline char
-macro print_newline {
-  10 printc pop
-}
-
--- Starting number
+-- Counter
 1
 
--- While not reached max yet 
-check_not_at_max while {
-  pop
-  printn
-  increment
-  print_newline
-  check_not_at_max
+-- Start the loop
+true
+
+while {
+    pop
+    
+    -- Check if divisible by 3
+    dup 3 divisible_by if {
+        "fizz" prints
+    } pop
+
+    -- Check if divisible by 5
+    dup 5 divisible_by if {
+        "buzz" prints
+    } pop
+    
+    -- Check if divisible by neither
+    dup 3 divisible_by ! swap dup cycle3 swap 5 divisible_by ! & if {
+        swap printn swap
+    } pop
+
+    -- Print newline
+    10 printc pop
+
+    -- Increment count
+    1 +
+
+    -- Determain if loop again
+    dup max_loop_count <=
 }
 ```
-
-This code will print all numbers from 1 to 100 in a loop. If you want to learn more about the language, you can visit the [language guide](language.md).
