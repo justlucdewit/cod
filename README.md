@@ -28,9 +28,9 @@ Make sure to download the [standard library](https://github.com/justlucdewit/cod
 
 <br />
 
-# Usefull links:
+# Useful links:
  - [COD homepage](https://codlang.com)
- - [COD donwnload page](http://codlang.com/download.html)
+ - [COD download page](http://codlang.com/download.html)
  - [COD documentation](http://codlang.com/docs.html)
  - [COD online compiler](http://codlang.com/try-it.html)
  - [COD standard library](https://github.com/justlucdewit/cod/tree/master/stdlib)
