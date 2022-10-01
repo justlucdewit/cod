@@ -30,7 +30,6 @@ Once downloaded you can put the executable in your system PATH and then it shoul
 
 # Usage
 `cod someScript.cod -o someScript.c`
-
 for More help, run `cod --help`
 
 Make sure to download the [standard library](https://github.com/justlucdewit/cod/tree/master/stdlib) in your project root
