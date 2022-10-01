@@ -8,7 +8,16 @@
 <br />
 
 # The Cod Compiler
-Cod is an opensource concatenative stack-based general purpose programming language that compiles to C 
+Cod is an opensource concatenative stack-based general purpose programming language that compiles to C
+
+In the future, it is planned for the compiler to be bootstrapped meaning it will be written in Cod itself.
+
+<br />
+
+# Contribution
+To Cod is an opensource project and contributions are welcome. If you would like to contribute, please fork the repository, work using github issues, use the ticket notation style used in the issues, and submit a pull request.
+
+Hacktoberfest pull requests are welcome including spelling mistakes and grammar fixes.
 
 <br />
 
@@ -21,7 +30,6 @@ Once downloaded you can put the executable in your system PATH and then it shoul
 
 # Usage
 `cod someScript.cod -o someScript.c`
-
 for More help, run `cod --help`
 
 Make sure to download the [standard library](https://github.com/justlucdewit/cod/tree/master/stdlib) in your project root
